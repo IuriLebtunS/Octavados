@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+17JpzbI6DorSvESyVtFPOcQK0DI/uUEDSXtAadtaW34AVdQ1oJQeGuPP8S9KpkPsALNMSDh52zxfqT20fQRZA==",
+  "dgSpecHash": "Ar8/wEuOo4ObqrX+E8H6UnLDCmdm/RCJBB2/KsItdg9cN923L/pFZrInQ5hJfq++Za0i/cHzV/LWofbSwFBsJQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\LojaOctavados.csproj",
+  "projectFilePath": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\Octavados.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lebtu\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\lebtu\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
