@@ -1,4 +1,4 @@
-namespace LojaOctavados.Models;
+namespace Octavados.Models;
 
 public class Detalhe
 {

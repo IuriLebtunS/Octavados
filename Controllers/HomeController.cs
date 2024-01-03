@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using LojaOctavados.Models;
+using Octavados.Models;
 
-namespace LojaOctavados.Controllers;
+namespace Octavados.Controllers;
 
 public class HomeController : Controller
 {
