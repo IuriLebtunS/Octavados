@@ -20,3 +20,7 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.navbar-brand::after {
+  content: none; /* Oculta o conteúdo gerado (::after) */
+}
