@@ -1,0 +1,24 @@
+@model IEnumerable<SeuNamespace.Models.ProdutoIndexViewModel>
+
+@{
+    ViewData["Title"] = "Produtos";
+}
+
+<div class="list-group" show-if='Model.Any()'>
+    @foreach (var produto in Model)
+    {
+        <a class="list-group-item list-group-item-action" asp-action="Detalhes" asp-route-id="@produto.Id">
+            <div class="row">
+                <div class="col-md-10" style="font-weight: bold;">
+                    <strong>@produto.Nome</strong><br>
+                    <span style="font-weight: bold;">Preço: @produto.Preco - Marca: @produto.Marca</span><br>
+                    <span>Quantidade em Estoque: @produto.QuantidadeEmEstoque</span><br>
+                    <span>Categoria: @produto.CategoriaNome</span>
+                </div>
+                <div class="col-md-1 col-auto border-start" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <div class='mt-2' style="font-size: 1.2em;"><strong>@produto.Id.ToString("0000")</strong></div>
+                </div>
+            </div>
+        </a>
+    }
+</div>
