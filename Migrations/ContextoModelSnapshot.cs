@@ -35,7 +35,7 @@ namespace Octavados.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categorias");
+                    b.ToTable("Categorias", (string)null);
                 });
 
             modelBuilder.Entity("Octavados.Models.Detalhe", b =>
@@ -56,7 +56,7 @@ namespace Octavados.Migrations
 
                     b.HasIndex("ProdutoId");
 
-                    b.ToTable("Detalhes");
+                    b.ToTable("Detalhes", (string)null);
                 });
 
             modelBuilder.Entity("Octavados.Models.Produto", b =>
@@ -92,7 +92,7 @@ namespace Octavados.Migrations
 
                     b.HasIndex("CategoriaId");
 
-                    b.ToTable("Produtos");
+                    b.ToTable("Produtos", (string)null);
                 });
 
             modelBuilder.Entity("Octavados.Models.Venda", b =>
@@ -122,7 +122,7 @@ namespace Octavados.Migrations
 
                     b.HasIndex("DetalheId");
 
-                    b.ToTable("Vendas");
+                    b.ToTable("Vendas", (string)null);
                 });
 
             modelBuilder.Entity("Octavados.Models.Detalhe", b =>
