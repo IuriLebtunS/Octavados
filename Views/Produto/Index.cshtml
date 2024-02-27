@@ -1,4 +1,4 @@
-@model IEnumerable<SeuNamespace.Models.ProdutoIndexViewModel>
+@model IEnumerable<Octavados.ViewModels.ProdutoVM>
 
 @{
     ViewData["Title"] = "Produtos";
@@ -9,14 +9,16 @@
     {
         <a class="list-group-item list-group-item-action" asp-action="Detalhes" asp-route-id="@produto.Id">
             <div class="row">
+                <div class="col-1 col-auto me-auto border-end text-center d-flex align-items-center justify-content-center" style="color: black;">
+                    <div>
+                        <span style="font-weight: bold;">@produto.Id.ToString("0000")</span><br>
+                    </div>
+                </div>
                 <div class="col-md-10" style="font-weight: bold;">
                     <strong>@produto.Nome</strong><br>
                     <span style="font-weight: bold;">Preço: @produto.Preco - Marca: @produto.Marca</span><br>
                     <span>Quantidade em Estoque: @produto.QuantidadeEmEstoque</span><br>
-                    <span>Categoria: @produto.CategoriaNome</span>
-                </div>
-                <div class="col-md-1 col-auto border-start" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                    <div class='mt-2' style="font-size: 1.2em;"><strong>@produto.Id.ToString("0000")</strong></div>
+                    <span>Categoria: @produto.Nome</span>
                 </div>
             </div>
         </a>

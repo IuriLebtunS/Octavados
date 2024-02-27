@@ -22,7 +22,7 @@ namespace Octavados.Controllers
                 .Include(p => p.Categoria) 
                 .ToList();
 
-            var produtosViewModel = produtos.Select(p => new ProdutoIndexViewModel
+            var produtosViewModel = produtos.Select(p => new ProdutoVM
             {
                 Id = p.Id,
                 Nome = p.Nome,
