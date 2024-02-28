@@ -19,10 +19,10 @@ namespace Octavados.Controllers
         public IActionResult Index()
         {
             var produtos = _db.Produtos
-                .Include(p => p.Categoria) 
+                .Include(p => p.Categoria)
                 .ToList();
 
-            var produtosViewModel = produtos.Select(p => new ProdutoVM
+            var produtosNovo = produtos.Select(p => new IndexDeProdutosVM
             {
                 Id = p.Id,
                 Nome = p.Nome,
@@ -30,34 +30,62 @@ namespace Octavados.Controllers
                 Marca = p.Marca,
                 QuantidadeEmEstoque = p.QuantidadeEmEstoque,
                 Imagem = p.Imagem,
-                CategoriaNome = p.Categoria?.Nome 
+                CategoriaNome = p.Categoria?.Nome
             }).ToList();
 
-            return View(produtosViewModel);
+            return View(produtosNovo);
         }
+
 
         public IActionResult Criar()
         {
-            ViewBag.Categorias = new SelectList(_db.Categorias.ToList(), "Id", "Nome");
+            var categorias = _db.Categorias
+                .Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.Nome
+                }).ToList();
 
-            return View();
+            var produtoVM = new CriarProdutoVM
+            {
+                Categorias = categorias
+            };
+
+            return View(produtoVM);
         }
 
         [HttpPost]
-        public IActionResult Criar(Produto produto)
+        public IActionResult Criar(CriarProdutoVM produtoVM)
         {
             if (ModelState.IsValid)
             {
+                // Mapear dados da ViewModel para a entidade Produto
+                var produto = new Produto
+                {
+                    Nome = produtoVM.Nome,
+                    Preco = produtoVM.Preco,
+                    Marca = produtoVM.Marca,
+                    QuantidadeEmEstoque = produtoVM.QuantidadeEmEstoque,
+                    Imagem = produtoVM.ImagemUpload?.FileName,
+                    CategoriaId = produtoVM.CategoriaId
+                };
+
                 _db.Produtos.Add(produto);
                 _db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Categorias = new SelectList(_db.Categorias.ToList(), "Id", "Nome", produto.CategoriaId);
+            produtoVM.Categorias = _db.Categorias
+                .Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.Nome
+                }).ToList();
 
-            return View(produto);
+            return View(produtoVM);
         }
+
 
         public IActionResult Editar(int id)
         {
