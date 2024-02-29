@@ -1,9 +1,9 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Octavados.Data;
 using Octavados.Models;
 using Octavados.ViewModels;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Octavados.Data;
 
 namespace Octavados.Controllers
 {
@@ -16,11 +16,11 @@ namespace Octavados.Controllers
             _db = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var produtos = _db.Produtos
+            var produtos = await _db.Produtos
                 .Include(p => p.Categoria)
-                .ToList();
+                .ToListAsync();
 
             var produtosNovo = produtos.Select(p => new IndexDeProdutosVM
             {
@@ -36,15 +36,14 @@ namespace Octavados.Controllers
             return View(produtosNovo);
         }
 
-
-        public IActionResult Criar()
+        public async Task<IActionResult> Criar()
         {
-            var categorias = _db.Categorias
+            var categorias = await _db.Categorias
                 .Select(c => new SelectListItem
                 {
                     Value = c.Id.ToString(),
                     Text = c.Nome
-                }).ToList();
+                }).ToListAsync();
 
             var produtoVM = new CriarProdutoVM
             {
@@ -54,12 +53,12 @@ namespace Octavados.Controllers
             return View(produtoVM);
         }
 
+
         [HttpPost]
-        public IActionResult Criar(CriarProdutoVM produtoVM)
+        public async Task<IActionResult> Criar(CriarProdutoVM produtoVM)
         {
             if (ModelState.IsValid)
             {
-                // Mapear dados da ViewModel para a entidade Produto
                 var produto = new Produto
                 {
                     Nome = produtoVM.Nome,
@@ -71,7 +70,7 @@ namespace Octavados.Controllers
                 };
 
                 _db.Produtos.Add(produto);
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
 
                 return RedirectToAction("Index");
             }
@@ -86,10 +85,9 @@ namespace Octavados.Controllers
             return View(produtoVM);
         }
 
-
-        public IActionResult Editar(int id)
+        public async Task<IActionResult> Editar(int id)
         {
-            var produto = _db.Produtos.Find(id);
+            var produto = await _db.Produtos.FindAsync(id);
 
             if (produto == null)
             {
@@ -102,12 +100,12 @@ namespace Octavados.Controllers
         }
 
         [HttpPost]
-        public IActionResult Editar(Produto produto)
+        public async Task<IActionResult> Editar(Produto produto)
         {
             if (ModelState.IsValid)
             {
                 _db.Entry(produto).State = EntityState.Modified;
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
 
                 return RedirectToAction("Index");
             }
@@ -117,9 +115,9 @@ namespace Octavados.Controllers
             return View(produto);
         }
 
-        public IActionResult Detalhes(int id)
+        public async Task<IActionResult> Detalhes(int id)
         {
-            var produto = _db.Produtos.Find(id);
+            var produto = await _db.Produtos.FindAsync(id);
 
             if (produto == null)
             {
