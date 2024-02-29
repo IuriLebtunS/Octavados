@@ -11,9 +11,10 @@
     </h2>
     <a class="btn btn-secondary" asp-action="Criar">
         <i class="fa-solid fa-plus"></i>
-         Novo Produto
+        Novo Produto
     </a>
 </div>
+<br>
 
 
 
@@ -42,6 +43,14 @@
     }
     else
     {
-        <p>Nenhum produto cadastrado.</p>
+        <div class="d-flex justify-content-between">
+
+            <h2>
+                <i class="fa-solid fa-ghost"></i>
+                Nenhum produto cadastrado.
+            </h2>
+
+        </div>
+
     }
 </div>

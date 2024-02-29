@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Octavados.ViewModels
 {
-    public class CriarProdutoVM
+    public class EditarProdutoVM
     {
         public string Nome { get; set; }
         public string CategoriaNome { get; set; }
