@@ -43,11 +43,11 @@
         <input asp-for="Imagem" type="file" class="form-control" />
         <span asp-validation-for="Imagem" class="text-danger"></span>
     </div>
+    <br>
 
     <div class="form-group">
-        <label asp-for="CategoriaNome"></label>
-        <input asp-for="CategoriaNome" class="form-control" />
-        <span asp-validation-for="CategoriaNome" class="text-danger"></span>
+        <select asp-for="CategoriaId" asp-items='(SelectList)@ViewData["Categorias"]' class="form-control"></select>
+        <span asp-validation-for="CategoriaId" class="text-danger"></span>
     </div>
     <br>
 

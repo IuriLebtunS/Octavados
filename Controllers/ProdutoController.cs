@@ -38,21 +38,12 @@ namespace Octavados.Controllers
 
         public async Task<IActionResult> Criar()
         {
-            var categorias = await _db.Categorias
-                .Select(c => new SelectListItem
-                {
-                    Value = c.Id.ToString(),
-                    Text = c.Nome
-                }).ToListAsync();
+            ViewData["Categorias"] = new SelectList(await _db.Categorias
+                .Select(c => new { Value = c.Id.ToString(), Text = c.Nome })
+                .ToListAsync(), "Value", "Text");
 
-            var produtoVM = new CriarProdutoVM
-            {
-                Categorias = categorias
-            };
-
-            return View(produtoVM);
+            return View();
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Criar(CriarProdutoVM produtoVM)
@@ -75,15 +66,13 @@ namespace Octavados.Controllers
                 return RedirectToAction("Index");
             }
 
-            produtoVM.Categorias = _db.Categorias
-                .Select(c => new SelectListItem
-                {
-                    Value = c.Id.ToString(),
-                    Text = c.Nome
-                }).ToList();
+            ViewData["Categorias"] = new SelectList(await _db.Categorias
+                .Select(c => new { Value = c.Id.ToString(), Text = c.Nome })
+                .ToListAsync(), "Value", "Text");
 
             return View(produtoVM);
         }
+
 
         public async Task<IActionResult> Editar(int id)
         {

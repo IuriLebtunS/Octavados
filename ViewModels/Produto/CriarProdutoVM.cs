@@ -14,7 +14,6 @@ namespace Octavados.ViewModels
         public IFormFile? ImagemUpload { get; set; }
 
         public int CategoriaId { get; set; }
-        public List<SelectListItem> Categorias { get; set; }
 
     }
 }
