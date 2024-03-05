@@ -63,7 +63,6 @@ C:\Users\lebtu\Documents\cosasvarias\Octavados\obj\Debug\net8.0\staticwebassets.
 C:\Users\lebtu\Documents\cosasvarias\Octavados\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\lebtu\Documents\cosasvarias\Octavados\obj\Debug\net8.0\scopedcss\bundle\Octavados.styles.css
 C:\Users\lebtu\Documents\cosasvarias\Octavados\obj\Debug\net8.0\scopedcss\projectbundle\Octavados.bundle.scp.css
-C:\Users\lebtu\Documents\cosasvarias\Octavados\obj\Debug\net8.0\Octavados.csproj.CopyComplete
 C:\Users\lebtu\Documents\cosasvarias\Octavados\obj\Debug\net8.0\Octavados.dll
 C:\Users\lebtu\Documents\cosasvarias\Octavados\obj\Debug\net8.0\refint\Octavados.dll
 C:\Users\lebtu\Documents\cosasvarias\Octavados\obj\Debug\net8.0\Octavados.pdb
@@ -135,3 +134,4 @@ C:\Users\lebtu\Documents\cosasvarias\Octavados\bin\Debug\net8.0\ru\Microsoft.Cod
 C:\Users\lebtu\Documents\cosasvarias\Octavados\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\lebtu\Documents\cosasvarias\Octavados\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\lebtu\Documents\cosasvarias\Octavados\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\lebtu\Documents\cosasvarias\Octavados\obj\Debug\net8.0\Octavados.csproj.Up2Date

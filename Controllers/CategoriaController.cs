@@ -29,22 +29,32 @@ namespace Octavados.Controllers
         }
         public IActionResult Criar()
         {
-            return View();
+            var criarCategoriaVM = new CriarCategoriaVM();
+            return View(criarCategoriaVM);
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> Criar(Categoria categoria)
+        public async Task<IActionResult> Criar(CriarCategoriaVM criarCategoriaVM)
         {
             if (ModelState.IsValid)
             {
+                // Mapeie os valores da ViewModel para o objeto Categoria
+                var categoria = new Categoria
+                {
+                    Nome = criarCategoriaVM.Nome
+                    // Adicione outras propriedades conforme necessário
+                };
+
                 _db.Categorias.Add(categoria);
                 await _db.SaveChangesAsync();
 
                 return RedirectToAction("Index");
             }
 
-            return View(categoria);
+            return View(criarCategoriaVM);
         }
+
 
         public async Task<IActionResult> Editar(int id)
         {
@@ -55,21 +65,37 @@ namespace Octavados.Controllers
                 return NotFound();
             }
 
-            return View(categoria);
+            var editarCategoriaVM = new EditarCategoriaVM
+            {
+                Id = categoria.Id,
+                Nome = categoria.Nome,
+                Ativo = categoria.Ativo
+            };
+
+            return View(editarCategoriaVM);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Editar(Categoria categoria)
+        public async Task<IActionResult> Editar(EditarCategoriaVM editarCategoriaVM)
         {
             if (ModelState.IsValid)
             {
+                var categoria = new Categoria
+                {
+                    Id = editarCategoriaVM.Id,
+                    Nome = editarCategoriaVM.Nome,
+                    Ativo = editarCategoriaVM.Ativo
+                };
+
                 _db.Categorias.Update(categoria);
                 await _db.SaveChangesAsync();
 
                 return RedirectToAction("Index");
             }
 
-            return View(categoria);
+            return View(editarCategoriaVM);
         }
+
+
     }
 }
