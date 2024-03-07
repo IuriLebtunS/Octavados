@@ -29,7 +29,7 @@ namespace Octavados.Controllers
                 Preco = p.Preco,
                 Marca = p.Marca,
                 QuantidadeEmEstoque = p.QuantidadeEmEstoque,
-                Imagem = p.Imagem,
+                Imagem = p.ImagemUrl,
                 CategoriaNome = p.Categoria?.Nome
             }).ToList();
 
@@ -56,7 +56,7 @@ namespace Octavados.Controllers
                     Preco = produtoVM.Preco,
                     Marca = produtoVM.Marca,
                     QuantidadeEmEstoque = produtoVM.QuantidadeEmEstoque,
-                    Imagem = produtoVM.ImagemUrl,
+                    ImagemUrl = produtoVM.ImagemUrl,
                     CategoriaId = produtoVM.CategoriaId
                 };
 
@@ -74,19 +74,30 @@ namespace Octavados.Controllers
         }
 
 
-        public async Task<IActionResult> Editar(int id)
-        {
-            var produto = await _db.Produtos.FindAsync(id);
+      public async Task<IActionResult> Editar(int id)
+{
+    var produto = await _db.Produtos.FindAsync(id);
 
-            if (produto == null)
-            {
-                return NotFound();
-            }
+    if (produto == null)
+    {
+        return NotFound();
+    }
 
-            ViewBag.Categorias = new SelectList(_db.Categorias.ToList(), "Id", "Nome", produto.CategoriaId);
+    var viewModel = new EditarProdutoVM
+    {
+        Nome = produto.Nome,
+        Preco = produto.Preco,
+        Marca = produto.Marca,
+        QuantidadeEmEstoque = produto.QuantidadeEmEstoque,
+        ImagemUrl = produto.ImagemUrl, 
+        CategoriaId = produto.CategoriaId
+    };
 
-            return View(produto);
-        }
+    // Passe a lista de categorias para a ViewData
+    ViewData["Categorias"] = new SelectList(_db.Categorias.ToList(), "Id", "Nome", produto.CategoriaId);
+
+    return View(viewModel);
+}
 
         [HttpPost]
         public async Task<IActionResult> Editar(Produto produto)

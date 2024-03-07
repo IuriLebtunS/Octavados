@@ -13,14 +13,11 @@
 
 <form asp-action="Editar" method="post" enctype="multipart/form-data">
   <div class="form-group">
-        <label>Imagem Atual</label>
+    <br>
         @if (!string.IsNullOrEmpty(Model.ImagemUrl))
         {
             <img src="@Model.ImagemUrl" class="img-thumbnail" alt="Imagem Atual" />
         }
-        <input asp-for="ImagemUrl" class="form-control" />
-        <span asp-validation-for="ImagemUrl" class="text-danger"></span>
-        <small class="form-text text-muted">Insira o URL da imagem.</small>
     </div> 
 
     <div class="form-group">
