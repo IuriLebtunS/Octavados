@@ -56,7 +56,7 @@ namespace Octavados.Controllers
                     Preco = produtoVM.Preco,
                     Marca = produtoVM.Marca,
                     QuantidadeEmEstoque = produtoVM.QuantidadeEmEstoque,
-                    Imagem = produtoVM.ImagemUpload?.FileName,
+                    Imagem = produtoVM.ImagemUrl,
                     CategoriaId = produtoVM.CategoriaId
                 };
 

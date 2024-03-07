@@ -27,7 +27,7 @@
 
     @foreach (var categoria in Model)
     {
-        <a class="list-group-item list-group-item-action" asp-action="Detalhes" asp-route-id="@categoria.Id">
+         <a href="@Url.Action("Editar", new { id = categoria.Id })" class="list-group-item list-group-item-action">
             @categoria.Nome
         </a>
     }
