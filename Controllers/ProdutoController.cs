@@ -74,6 +74,7 @@ namespace Octavados.Controllers
         }
 
 
+        [HttpGet]
         public async Task<IActionResult> Editar(int id)
         {
             var produto = await _db.Produtos.FindAsync(id);
@@ -85,45 +86,51 @@ namespace Octavados.Controllers
 
             var viewModel = new EditarProdutoVM
             {
+                Id = produto.Id,
                 Nome = produto.Nome,
                 Preco = produto.Preco,
                 Marca = produto.Marca,
                 QuantidadeEmEstoque = produto.QuantidadeEmEstoque,
                 ImagemUrl = produto.ImagemUrl,
-                CategoriaId = produto.CategoriaId
+                CategoriaId = produto.CategoriaId,
+                Categorias = await _db.Categorias
+                            .Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Nome })
+                            .ToListAsync()
             };
-
-            ViewData["Categorias"] = new SelectList(await _db.Categorias
-               .Select(c => new { Value = c.Id.ToString(), Text = c.Nome })
-               .ToListAsync(), "Value", "Text");
 
             return View(viewModel);
         }
+
         [HttpPost]
         public async Task<IActionResult> Editar(EditarProdutoVM viewModel)
         {
             if (ModelState.IsValid)
             {
-                var produto = new Produto
+                var produto = await _db.Produtos.FindAsync(viewModel.Id);
+
+                if (produto == null)
                 {
-                    Nome = viewModel.Nome,
-                    Preco = viewModel.Preco,
-                    Marca = viewModel.Marca,
-                    QuantidadeEmEstoque = viewModel.QuantidadeEmEstoque,
-                    ImagemUrl = viewModel.ImagemUrl,
-                    CategoriaId = viewModel.CategoriaId
-                };
+                    return NotFound();
+                }
+
+                produto.Nome = viewModel.Nome;
+                produto.Preco = viewModel.Preco;
+                produto.Marca = viewModel.Marca;
+                produto.QuantidadeEmEstoque = viewModel.QuantidadeEmEstoque;
+                produto.ImagemUrl = viewModel.ImagemUrl;
+                produto.CategoriaId = viewModel.CategoriaId;
 
                 _db.Entry(produto).State = EntityState.Modified;
                 await _db.SaveChangesAsync();
 
-
                 return RedirectToAction("Index");
             }
 
-            ViewData["Categorias"] = new SelectList(await _db.Categorias
-                 .Select(c => new { Value = c.Id.ToString(), Text = c.Nome })
-                 .ToListAsync(), "Value", "Text");
+            viewModel.Categorias = await _db.Categorias
+                            .Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Nome })
+                            .ToListAsync();
+ 
+            ModelState.AddModelError("CategoriaId", "Selecione uma categoria.");
 
             return View(viewModel);
         }
