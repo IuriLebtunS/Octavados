@@ -74,46 +74,60 @@ namespace Octavados.Controllers
         }
 
 
-      public async Task<IActionResult> Editar(int id)
-{
-    var produto = await _db.Produtos.FindAsync(id);
+        public async Task<IActionResult> Editar(int id)
+        {
+            var produto = await _db.Produtos.FindAsync(id);
 
-    if (produto == null)
-    {
-        return NotFound();
-    }
+            if (produto == null)
+            {
+                return NotFound();
+            }
 
-    var viewModel = new EditarProdutoVM
-    {
-        Nome = produto.Nome,
-        Preco = produto.Preco,
-        Marca = produto.Marca,
-        QuantidadeEmEstoque = produto.QuantidadeEmEstoque,
-        ImagemUrl = produto.ImagemUrl, 
-        CategoriaId = produto.CategoriaId
-    };
+            var viewModel = new EditarProdutoVM
+            {
+                Nome = produto.Nome,
+                Preco = produto.Preco,
+                Marca = produto.Marca,
+                QuantidadeEmEstoque = produto.QuantidadeEmEstoque,
+                ImagemUrl = produto.ImagemUrl,
+                CategoriaId = produto.CategoriaId
+            };
 
-    // Passe a lista de categorias para a ViewData
-    ViewData["Categorias"] = new SelectList(_db.Categorias.ToList(), "Id", "Nome", produto.CategoriaId);
+            ViewData["Categorias"] = new SelectList(await _db.Categorias
+               .Select(c => new { Value = c.Id.ToString(), Text = c.Nome })
+               .ToListAsync(), "Value", "Text");
 
-    return View(viewModel);
-}
-
+            return View(viewModel);
+        }
         [HttpPost]
-        public async Task<IActionResult> Editar(Produto produto)
+        public async Task<IActionResult> Editar(EditarProdutoVM viewModel)
         {
             if (ModelState.IsValid)
             {
+                var produto = new Produto
+                {
+                    Nome = viewModel.Nome,
+                    Preco = viewModel.Preco,
+                    Marca = viewModel.Marca,
+                    QuantidadeEmEstoque = viewModel.QuantidadeEmEstoque,
+                    ImagemUrl = viewModel.ImagemUrl,
+                    CategoriaId = viewModel.CategoriaId
+                };
+
                 _db.Entry(produto).State = EntityState.Modified;
                 await _db.SaveChangesAsync();
+
 
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Categorias = new SelectList(_db.Categorias.ToList(), "Id", "Nome", produto.CategoriaId);
+            ViewData["Categorias"] = new SelectList(await _db.Categorias
+                 .Select(c => new { Value = c.Id.ToString(), Text = c.Nome })
+                 .ToListAsync(), "Value", "Text");
 
-            return View(produto);
+            return View(viewModel);
         }
+
 
         public async Task<IActionResult> Detalhes(int id)
         {
