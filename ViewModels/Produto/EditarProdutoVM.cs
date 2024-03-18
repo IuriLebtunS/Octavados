@@ -11,7 +11,6 @@ namespace Octavados.ViewModels
         public int QuantidadeEmEstoque { get; set; }
         public string ImagemUrl { get; set; }
         public int CategoriaId { get; set; }
-        public List<SelectListItem> Categorias { get; set; }
 
     }
 }

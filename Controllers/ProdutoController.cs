@@ -93,10 +93,11 @@ namespace Octavados.Controllers
                 QuantidadeEmEstoque = produto.QuantidadeEmEstoque,
                 ImagemUrl = produto.ImagemUrl,
                 CategoriaId = produto.CategoriaId,
-                Categorias = await _db.Categorias
-                            .Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Nome })
-                            .ToListAsync()
+                
             };
+            ViewData["Categorias"] = new SelectList(await _db.Categorias
+                .Select(c => new { Value = c.Id.ToString(), Text = c.Nome })
+                .ToListAsync(), "Value", "Text");
 
             return View(viewModel);
         }
@@ -126,9 +127,9 @@ namespace Octavados.Controllers
                 return RedirectToAction("Index");
             }
 
-            viewModel.Categorias = await _db.Categorias
-                            .Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Nome })
-                            .ToListAsync();
+            ViewData["Categorias"] = new SelectList(await _db.Categorias
+                .Select(c => new { Value = c.Id.ToString(), Text = c.Nome })
+                .ToListAsync(), "Value", "Text");
  
             ModelState.AddModelError("CategoriaId", "Selecione uma categoria.");
 
