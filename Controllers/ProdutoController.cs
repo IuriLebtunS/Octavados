@@ -1,9 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Octavados.Data;
-using Octavados.Models;
-using Octavados.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
+using Octavados.ViewModels;
+using Octavados.Models;
+using Octavados.Data;
 
 namespace Octavados.Controllers
 {
@@ -30,7 +30,7 @@ namespace Octavados.Controllers
                 Marca = p.Marca,
                 QuantidadeEmEstoque = p.QuantidadeEmEstoque,
                 Imagem = p.ImagemUrl,
-                CategoriaNome = p.Categoria?.Nome
+                CategoriaNome = p.Categoria.Nome
             }).ToList();
 
             return View(produtosNovo);
@@ -38,12 +38,18 @@ namespace Octavados.Controllers
 
         public async Task<IActionResult> Criar()
         {
+            await CarregarViewDataCategorias();
+            return View();
+        }
+
+
+        public async Task CarregarViewDataCategorias()
+        {
             ViewData["Categorias"] = new SelectList(await _db.Categorias
                 .Select(c => new { Value = c.Id.ToString(), Text = c.Nome })
                 .ToListAsync(), "Value", "Text");
-
-            return View();
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Criar(CriarProdutoVM produtoVM)
@@ -66,9 +72,7 @@ namespace Octavados.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewData["Categorias"] = new SelectList(await _db.Categorias
-                .Select(c => new { Value = c.Id.ToString(), Text = c.Nome })
-                .ToListAsync(), "Value", "Text");
+            await CarregarViewDataCategorias();
 
             return View(produtoVM);
         }
@@ -93,11 +97,10 @@ namespace Octavados.Controllers
                 QuantidadeEmEstoque = produto.QuantidadeEmEstoque,
                 ImagemUrl = produto.ImagemUrl,
                 CategoriaId = produto.CategoriaId,
-                
+
             };
-            ViewData["Categorias"] = new SelectList(await _db.Categorias
-                .Select(c => new { Value = c.Id.ToString(), Text = c.Nome })
-                .ToListAsync(), "Value", "Text");
+
+            await CarregarViewDataCategorias();
 
             return View(viewModel);
         }
@@ -127,26 +130,13 @@ namespace Octavados.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewData["Categorias"] = new SelectList(await _db.Categorias
-                .Select(c => new { Value = c.Id.ToString(), Text = c.Nome })
-                .ToListAsync(), "Value", "Text");
- 
+            await CarregarViewDataCategorias();
+
+
             ModelState.AddModelError("CategoriaId", "Selecione uma categoria.");
 
             return View(viewModel);
         }
 
-
-        public async Task<IActionResult> Detalhes(int id)
-        {
-            var produto = await _db.Produtos.FindAsync(id);
-
-            if (produto == null)
-            {
-                return NotFound();
-            }
-
-            return View(produto);
-        }
     }
 }

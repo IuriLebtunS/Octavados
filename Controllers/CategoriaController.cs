@@ -39,11 +39,9 @@ namespace Octavados.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Mapeie os valores da ViewModel para o objeto Categoria
                 var categoria = new Categoria
                 {
                     Nome = criarCategoriaVM.Nome
-                    // Adicione outras propriedades conforme necessário
                 };
 
                 _db.Categorias.Add(categoria);

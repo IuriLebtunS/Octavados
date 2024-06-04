@@ -48,8 +48,10 @@
     </div>
     <br>
 
-    <div class="form-group">
-        <select asp-for="CategoriaId" asp-items='(SelectList)@ViewData["Categorias"]' class="form-control"></select>
+
+   <div class="form-group">
+        <label asp-for="CategoriaId" class="control-label"></label>
+        <select asp-for="CategoriaId" asp-items="@(ViewData["Categorias"] as SelectList)" class="form-control"></select>
         <span asp-validation-for="CategoriaId" class="text-danger"></span>
     </div>
     <br>
