@@ -9,9 +9,9 @@
         <i class="fas fa-boxes-stacked"></i>
         @ViewData["Title"]
     </h2>
-    <a class="btn btn-secondary" asp-action="Criar">
+    <a class="btn btn-secondary" asp-action="AdicionarEstoque">
         <i class="fa-solid fa-plus"></i>
-        Novo Produto
+        Adicionar Estoque Novo
     </a>
 </div>
 <br>
@@ -31,10 +31,9 @@
                     </div>
                     <div class="col-md-10" style="font-weight: bold;">
                         <strong>@estoque.NomeProduto</strong><br>
-                        <span style="font-weight: bold;">Marca: @estoque.Marca</span><br>
                         <span>Quantidade: @estoque.Quantidade</span><br>
-                        <span>Categoria: @(estoque.CategoriaNome ?? "N/A")</span><br>
-                        <span>Data de Chegada: @estoque.DataChegada.ToShortDateString()</span>
+                        <span>Categoria: @estoque.Categoria</span><br>
+                        <span>Data de Chegada: @estoque.DataChegada</span>
                     </div>
                 </div>
             </a>

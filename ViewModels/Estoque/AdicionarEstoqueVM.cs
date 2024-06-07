@@ -1,14 +1,12 @@
-using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 
 namespace Octavados.ViewModels
 {
     public class AdicionarEstoqueVM
     {
-        public string Nome { get; set; }
-        public decimal Preco { get; set; }
-        public string Marca { get; set; }
-        public int Quantidade { get; set; }
         public int CategoriaId { get; set; }
-
+        public int ProdutoId { get; set; }
+        public int Quantidade { get; set; }
+        public DateTime DataChegada { get; set; }
     }
 }

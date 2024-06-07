@@ -24,6 +24,13 @@ namespace Octavados.Controllers
                 .Select(c => new { c.Id, c.Nome })
                 .ToListAsync();
             ViewData["Categorias"] = new SelectList(categorias, "Id", "Nome");
+
+            var produtos = await _db.Produtos
+              .AsNoTracking()
+              .Select(p => new { p.Id, p.Nome })
+              .ToListAsync();
+            ViewData["Produtos"] = new SelectList(produtos, "Id", "Nome");
+
         }
 
         public async Task<ActionResult> ListarEstoqueNovo()
@@ -32,9 +39,8 @@ namespace Octavados.Controllers
 
             var viewModel = estoques.Select(e => new ListarEstoqueNovoVM
             {
-                CategoriaNome = e.Categoria.Nome,
+                Categoria = e.Categoria.Nome,
                 NomeProduto = e.Nome,
-                Marca = e.Marca,
                 Quantidade = e.Quantidade,
                 DataChegada = e.DataChegada
             }).ToList();
@@ -55,14 +61,12 @@ namespace Octavados.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.DataChegada = DateTime.Now;
                 _db.Estoques.Add(model);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
+                await _db.SaveChangesAsync();
+                return RedirectToAction("ListarEstoqueNovo");
             }
-            
-            await CarregarViewDataCategorias();
 
+           await CarregarViewDataCategorias();
             return View(model);
         }
     }
