@@ -1,0 +1,52 @@
+@model IEnumerable<Octavados.Models.ViewModels.ListarEstoqueNovoVM>
+
+@{
+    ViewData["Title"] = "Estoque Novo";
+}
+
+<div class="d-flex justify-content-between">
+    <h2>
+        <i class="fas fa-boxes-stacked"></i>
+        @ViewData["Title"]
+    </h2>
+    <a class="btn btn-secondary" asp-action="Criar">
+        <i class="fa-solid fa-plus"></i>
+        Novo Produto
+    </a>
+</div>
+<br>
+
+<div class="list-group">
+    @if (Model.Any())
+    {
+        foreach (var estoque in Model)
+        {
+            <a class="list-group-item list-group-item-action" asp-action="Editar" asp-route-id="@estoque.Id">
+                <div class="row">
+                    <div class="col-1 col-auto me-auto border-end text-center d-flex align-items-center justify-content-center"
+                        style="color: black;">
+                        <div>
+                            <span style="font-weight: bold;">@estoque.Id.ToString("0000")</span><br>
+                        </div>
+                    </div>
+                    <div class="col-md-10" style="font-weight: bold;">
+                        <strong>@estoque.NomeProduto</strong><br>
+                        <span style="font-weight: bold;">Marca: @estoque.Marca</span><br>
+                        <span>Quantidade: @estoque.Quantidade</span><br>
+                        <span>Categoria: @(estoque.CategoriaNome ?? "N/A")</span><br>
+                        <span>Data de Chegada: @estoque.DataChegada.ToShortDateString()</span>
+                    </div>
+                </div>
+            </a>
+        }
+    }
+    else
+    {
+        <div class="d-flex justify-content-between">
+            <h2>
+                <i class="fa-solid fa-ghost"></i>
+                Nenhum Estoque registrado.
+            </h2>
+        </div>
+    }
+</div>

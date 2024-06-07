@@ -45,9 +45,11 @@ namespace Octavados.Controllers
 
         public async Task CarregarViewDataCategorias()
         {
-            ViewData["Categorias"] = new SelectList(await _db.Categorias
-                .Select(c => new { Value = c.Id.ToString(), Text = c.Nome })
-                .ToListAsync(), "Value", "Text");
+            var categorias = await _db.Categorias
+                .AsNoTracking()
+                .Select(c => new { c.Id, c.Nome })
+                .ToListAsync();
+            ViewData["Categorias"] = new SelectList(categorias, "Id", "Nome");
         }
 
 
