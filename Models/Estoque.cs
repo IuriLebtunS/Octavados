@@ -5,10 +5,10 @@ namespace Octavados.Models
     {
         public Estoque() { }
         public int Id { get; set; }
-        public string Nome { get; set; }
+        public string NomeProduto { get; set; }
+        public int ProdutoId { get; set; }
+        public Produto Produto { get; set; }
         public int Quantidade { get; set; }
-        public int CategoriaId { get; set; }
-        public Categoria Categoria { get; set; }
         public DateTime DataChegada { get; set; }
     }
 }

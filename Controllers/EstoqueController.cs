@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Octavados.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Octavados.ViewModels;
 using Octavados.Models;
 using Octavados.Data;
 
@@ -17,13 +18,8 @@ namespace Octavados.Controllers
         }
 
 
-        public async Task CarregarViewDataCategorias()
+        public async Task CarregarViewDataProduto()
         {
-            var categorias = await _db.Categorias
-                .AsNoTracking()
-                .Select(c => new { c.Id, c.Nome })
-                .ToListAsync();
-            ViewData["Categorias"] = new SelectList(categorias, "Id", "Nome");
 
             var produtos = await _db.Produtos
               .AsNoTracking()
@@ -35,12 +31,13 @@ namespace Octavados.Controllers
 
         public async Task<ActionResult> ListarEstoqueNovo()
         {
-            var estoques = _db.Estoques.Include(e => e.Categoria).ToList();
+            var estoques = await _db.Estoques
+               .Include(e => e.Produto)
+               .ToListAsync();
 
             var viewModel = estoques.Select(e => new ListarEstoqueNovoVM
             {
-                Categoria = e.Categoria.Nome,
-                NomeProduto = e.Nome,
+                NomeProduto = e.Produto.Nome,
                 Quantidade = e.Quantidade,
                 DataChegada = e.DataChegada
             }).ToList();
@@ -50,23 +47,36 @@ namespace Octavados.Controllers
 
         public async Task<ActionResult> AdicionarEstoque()
         {
-            await CarregarViewDataCategorias();
+            await CarregarViewDataProduto();
 
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AdicionarEstoque(Estoque model)
+        public async Task<IActionResult> AdicionarEstoque(AdicionarEstoqueVM model)
         {
             if (ModelState.IsValid)
             {
-                _db.Estoques.Add(model);
+                var produto = await _db.Produtos.FindAsync(model.ProdutoId);
+
+                produto?.AtualizarEstoque(model.Quantidade);
+
+                var estoque = new Estoque
+                {
+                    ProdutoId = model.ProdutoId,
+                    NomeProduto = model.NomeProduto,
+                    Quantidade = model.Quantidade,
+                    DataChegada = model.DataChegada
+                };
+
+                _db.Estoques.Add(estoque);
                 await _db.SaveChangesAsync();
+
                 return RedirectToAction("ListarEstoqueNovo");
             }
 
-           await CarregarViewDataCategorias();
+            await CarregarViewDataProduto();
             return View(model);
         }
     }

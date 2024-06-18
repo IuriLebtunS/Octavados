@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\Octavados.csproj": {}
+    "c:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\Octavados.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\Octavados.csproj": {
+    "c:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\Octavados.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\Octavados.csproj",
+        "projectUniqueName": "c:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\Octavados.csproj",
         "projectName": "Octavados",
-        "projectPath": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\Octavados.csproj",
+        "projectPath": "c:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\Octavados.csproj",
         "packagesPath": "C:\\Users\\lebtu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\obj\\",
+        "outputPath": "c:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lebtu\\AppData\\Roaming\\NuGet\\NuGet.Config",
