@@ -83,12 +83,9 @@ namespace Octavados.Controllers
         [HttpGet]
         public async Task<IActionResult> Editar(int id)
         {
-            var produto = await _db.Produtos.FindAsync(id);
-
-            if (produto == null)
-            {
-                return NotFound();
-            }
+            var produto = await _db.Produtos
+                .Include(p => p.Estoque)
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             var viewModel = new EditarProdutoVM
             {
@@ -96,7 +93,7 @@ namespace Octavados.Controllers
                 Nome = produto.Nome,
                 Preco = produto.Preco,
                 Marca = produto.Marca,
-                QuantidadeEmEstoque = produto.QuantidadeEmEstoque,
+                QuantidadeEmEstoque = produto.Estoque?.Quantidade ?? 0,
                 ImagemUrl = produto.ImagemUrl,
                 CategoriaId = produto.CategoriaId,
 
@@ -112,17 +109,14 @@ namespace Octavados.Controllers
         {
             if (ModelState.IsValid)
             {
-                var produto = await _db.Produtos.FindAsync(viewModel.Id);
-
-                if (produto == null)
-                {
-                    return NotFound();
-                }
+                var produto = await _db.Produtos
+                .Include(p => p.Estoque)
+                .FirstOrDefaultAsync(p => p.Id == viewModel.Id);
 
                 produto.Nome = viewModel.Nome;
                 produto.Preco = viewModel.Preco;
                 produto.Marca = viewModel.Marca;
-                produto.QuantidadeEmEstoque = viewModel.QuantidadeEmEstoque;
+                produto.Estoque.Quantidade = viewModel.QuantidadeEmEstoque;
                 produto.ImagemUrl = viewModel.ImagemUrl;
                 produto.CategoriaId = viewModel.CategoriaId;
 
