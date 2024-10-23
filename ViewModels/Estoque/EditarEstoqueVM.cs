@@ -2,19 +2,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Octavados.ViewModels
 {
-    public class AdicionarEstoqueVM
+    public class EditarEstoqueVM
     {
         [Display(Name = "Produto")]
         public int ProdutoId { get; set; }
 
-        [Required(ErrorMessage = "O campo NomeProduto é obrigatório.")]
         public string NomeProduto { get; set; }
 
+        [DataType(DataType.Date)]
+        public DateTime DataChegada { get; set; } = DateTime.Now;
         [Display(Name = "Quantidade")]
         [Required(ErrorMessage = "O campo Quantidade é obrigatório.")]
         public int Quantidade { get; set; }
-
-        [DataType(DataType.Date)]
-        public DateTime DataChegada { get; set; } = DateTime.Today;
     }
 }
