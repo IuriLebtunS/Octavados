@@ -28,7 +28,6 @@ namespace Octavados.Controllers
                 Nome = p.Nome,
                 Preco = p.Preco,
                 Marca = p.Marca,
-                QuantidadeEmEstoque = p.QuantidadeEmEstoque,
                 Imagem = p.ImagemUrl,
                 CategoriaNome = p.Categoria.Nome
             }).ToList();
@@ -63,7 +62,6 @@ namespace Octavados.Controllers
                     Nome = produtoVM.Nome,
                     Preco = produtoVM.Preco,
                     Marca = produtoVM.Marca,
-                    QuantidadeEmEstoque = produtoVM.QuantidadeEmEstoque,
                     ImagemUrl = produtoVM.ImagemUrl,
                     CategoriaId = produtoVM.CategoriaId
                 };
@@ -93,7 +91,6 @@ namespace Octavados.Controllers
                 Nome = produto.Nome,
                 Preco = produto.Preco,
                 Marca = produto.Marca,
-                QuantidadeEmEstoque = produto.Estoque?.Quantidade ?? 0,
                 ImagemUrl = produto.ImagemUrl,
                 CategoriaId = produto.CategoriaId,
 
@@ -116,7 +113,6 @@ namespace Octavados.Controllers
                 produto.Nome = viewModel.Nome;
                 produto.Preco = viewModel.Preco;
                 produto.Marca = viewModel.Marca;
-                produto.Estoque.Quantidade = viewModel.QuantidadeEmEstoque;
                 produto.ImagemUrl = viewModel.ImagemUrl;
                 produto.CategoriaId = viewModel.CategoriaId;
 

@@ -12,7 +12,7 @@ using Octavados.Data;
 namespace Octavados.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20241021195737_RelacionamentoProdutoEstoque")]
+    [Migration("20241022184539_RelacionamentoProdutoEstoque")]
     partial class RelacionamentoProdutoEstoque
     {
         /// <inheritdoc />
@@ -123,9 +123,6 @@ namespace Octavados.Migrations
 
                     b.Property<decimal>("Preco")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("QuantidadeEmEstoque")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

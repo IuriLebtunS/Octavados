@@ -14,12 +14,10 @@ namespace Octavados.Migrations
                 name: "IX_Estoques_ProdutoId",
                 table: "Estoques");
 
-            migrationBuilder.AddColumn<int>(
-                name: "EstoqueId",
+            migrationBuilder.RenameColumn(
+                name: "QuantidadeEmEstoque",
                 table: "Produtos",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
+                newName: "EstoqueId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Estoques_ProdutoId",
@@ -35,9 +33,10 @@ namespace Octavados.Migrations
                 name: "IX_Estoques_ProdutoId",
                 table: "Estoques");
 
-            migrationBuilder.DropColumn(
+            migrationBuilder.RenameColumn(
                 name: "EstoqueId",
-                table: "Produtos");
+                table: "Produtos",
+                newName: "QuantidadeEmEstoque");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Estoques_ProdutoId",
