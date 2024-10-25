@@ -4,13 +4,20 @@ namespace Octavados.ViewModels
 {
     public class EditarEstoqueVM
     {
-        [Display(Name = "Produto")]
         public int ProdutoId { get; set; }
+
+        [Display(Name = "Produto")]
         public string NomeProduto { get; set; }
-        [DataType(DataType.Date)]
-        public DateTime DataChegada { get; set; } = DateTime.Now;
-        [Display(Name = "Quantidade")]
-        [Required(ErrorMessage = "O campo Quantidade é obrigatório.")]
+
+        [Display(Name = "Estoque")]
+        [Required(ErrorMessage = "Adicione um novo Estoque.")]
         public int Quantidade { get; set; }
+
+        [Display(Name = "Estoque Adicionado")]
+        public int? QuantidadeAdicionada { get; set; }
+
+        [Display(Name = "Atualizacao Do Estoque")]
+        [DataType(DataType.Date)]
+        public DateTime DataAtualizacao { get; set; } = DateTime.Now;
     }
 }
