@@ -5,7 +5,7 @@
 namespace Octavados.Migrations
 {
     /// <inheritdoc />
-    public partial class RelacionamentoProdutoEstoque : Migration
+    public partial class RelacaoEstoqueEProdutos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,10 +14,15 @@ namespace Octavados.Migrations
                 name: "IX_Estoques_ProdutoId",
                 table: "Estoques");
 
-            migrationBuilder.RenameColumn(
+            migrationBuilder.DropColumn(
                 name: "QuantidadeEmEstoque",
+                table: "Produtos");
+
+            migrationBuilder.AddColumn<int>(
+                name: "EstoqueId",
                 table: "Produtos",
-                newName: "EstoqueId");
+                type: "int",
+                nullable: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Estoques_ProdutoId",
@@ -33,10 +38,16 @@ namespace Octavados.Migrations
                 name: "IX_Estoques_ProdutoId",
                 table: "Estoques");
 
-            migrationBuilder.RenameColumn(
+            migrationBuilder.DropColumn(
                 name: "EstoqueId",
+                table: "Produtos");
+
+            migrationBuilder.AddColumn<int>(
+                name: "QuantidadeEmEstoque",
                 table: "Produtos",
-                newName: "QuantidadeEmEstoque");
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Estoques_ProdutoId",

@@ -4,18 +4,19 @@
     ViewData["Title"] = "Criar Novo Produto";
 }
 <div>
-
     <h2>
         <i class="fa-solid fa-circle-plus"></i>
         @ViewData["Title"]
     </h2>
-
 
 </div>
 
 <div asp-validation-summary="All"></div>
 
 <form asp-action="Criar" method="post" enctype="multipart/form-data">
+
+    <input asp-for="EstoqueId" type="hidden" value="@Model.EstoqueId" />
+
     <div class="form-group">
         <label asp-for="Nome"></label>
         <input asp-for="Nome" class="form-control" />
@@ -43,7 +44,7 @@
     <br>
 
 
-   <div class="form-group">
+    <div class="form-group">
         <label asp-for="CategoriaId" class="control-label"></label>
         <select asp-for="CategoriaId" asp-items="@(ViewData["Categorias"] as SelectList)" class="form-control"></select>
         <span asp-validation-for="CategoriaId" class="text-danger"></span>

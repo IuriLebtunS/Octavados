@@ -12,8 +12,8 @@ using Octavados.Data;
 namespace Octavados.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20241022184539_RelacionamentoProdutoEstoque")]
-    partial class RelacionamentoProdutoEstoque
+    [Migration("20241025170455_AdicionarEstoqueIdEmProduto")]
+    partial class AdicionarEstoqueIdEmProduto
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,7 +106,7 @@ namespace Octavados.Migrations
                     b.Property<int>("CategoriaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EstoqueId")
+                    b.Property<int?>("EstoqueId")
                         .HasColumnType("int");
 
                     b.Property<string>("ImagemUrl")

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Octavados.Data;
 
@@ -11,9 +12,11 @@ using Octavados.Data;
 namespace Octavados.Migrations
 {
     [DbContext(typeof(Contexto))]
-    partial class ContextoModelSnapshot : ModelSnapshot
+    [Migration("20241025164837_RelacaoEstoqueEProdutos")]
+    partial class RelacaoEstoqueEProdutos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,7 +81,7 @@ namespace Octavados.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProdutoId")
+                    b.Property<int>("ProdutoId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantidade")
@@ -87,8 +90,7 @@ namespace Octavados.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ProdutoId")
-                        .IsUnique()
-                        .HasFilter("[ProdutoId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Estoques");
                 });
@@ -104,7 +106,7 @@ namespace Octavados.Migrations
                     b.Property<int>("CategoriaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EstoqueId")
+                    b.Property<int?>("EstoqueId")
                         .HasColumnType("int");
 
                     b.Property<string>("ImagemUrl")
@@ -174,7 +176,9 @@ namespace Octavados.Migrations
                 {
                     b.HasOne("Octavados.Models.Produto", "Produto")
                         .WithOne("Estoque")
-                        .HasForeignKey("Octavados.Models.Estoque", "ProdutoId");
+                        .HasForeignKey("Octavados.Models.Estoque", "ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Produto");
                 });

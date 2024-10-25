@@ -6,9 +6,7 @@ namespace Octavados.ViewModels
     {
         [Display(Name = "Produto")]
         public int ProdutoId { get; set; }
-
         public string NomeProduto { get; set; }
-
         [DataType(DataType.Date)]
         public DateTime DataChegada { get; set; } = DateTime.Now;
         [Display(Name = "Quantidade")]

@@ -35,11 +35,6 @@ namespace Octavados.Controllers
             return View(produtosNovo);
         }
 
-        public async Task<IActionResult> Criar()
-        {
-            await CarregarViewDataCategorias();
-            return View();
-        }
 
 
         public async Task CarregarViewDataCategorias()
@@ -51,23 +46,38 @@ namespace Octavados.Controllers
             ViewData["Categorias"] = new SelectList(categorias, "Id", "Nome");
         }
 
+        public async Task<IActionResult> Criar()
+        {
+            await CarregarViewDataCategorias();
+            return View(new CriarProdutoVM());
+        }
 
         [HttpPost]
-        public async Task<IActionResult> Criar(CriarProdutoVM produtoVM)
+        public async Task<IActionResult> Criar(CriarProdutoVM produtoVM, int estoqueId)
         {
             if (ModelState.IsValid)
             {
+
                 var produto = new Produto
                 {
                     Nome = produtoVM.Nome,
                     Preco = produtoVM.Preco,
                     Marca = produtoVM.Marca,
                     ImagemUrl = produtoVM.ImagemUrl,
-                    CategoriaId = produtoVM.CategoriaId
+                    CategoriaId = produtoVM.CategoriaId,
+                    EstoqueId = produtoVM.EstoqueId
                 };
 
                 _db.Produtos.Add(produto);
                 await _db.SaveChangesAsync();
+
+                var estoque = await _db.Estoques.FindAsync(estoqueId);
+                if (estoque != null)
+                {
+                    estoque.ProdutoId = produto.Id;
+                    await _db.SaveChangesAsync();
+                }
+            
 
                 return RedirectToAction("Index");
             }

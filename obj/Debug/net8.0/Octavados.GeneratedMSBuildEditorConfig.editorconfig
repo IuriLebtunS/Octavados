@@ -30,8 +30,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/lebtu/Documents/cosasvarias/Octavados/Views/Estoque/AdicionarEstoque.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXN0b3F1ZVxBZGljaW9uYXJFc3RvcXVlLmNzaHRtbA==
+[C:/Users/lebtu/Documents/cosasvarias/Octavados/Views/Estoque/Criar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXN0b3F1ZVxDcmlhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/lebtu/Documents/cosasvarias/Octavados/Views/Estoque/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXN0b3F1ZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/lebtu/Documents/cosasvarias/Octavados/Views/Home/Index.cshtml]

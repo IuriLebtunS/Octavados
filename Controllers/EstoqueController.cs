@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Octavados.Data;
 using Octavados.Migrations;
 using Octavados.Models;
-using Octavados.Models.ViewModels;
 using Octavados.ViewModels;
 
 namespace Octavados.Controllers
@@ -20,8 +19,8 @@ namespace Octavados.Controllers
         public async Task<IActionResult> Index()
         {
             var estoque = await _db.Estoques
-                .Include(e => e.Produto) 
-                .OrderBy(c => c.DataChegada) 
+                .Include(e => e.Produto)
+                .OrderBy(c => c.DataChegada)
                 .Select(c => new IndexEstoqueVM
                 {
                     Id = c.Id,
@@ -45,18 +44,19 @@ namespace Octavados.Controllers
         {
             if (ModelState.IsValid)
             {
+    
                 var estoque = new Estoque
                 {
-                    ProdutoId = criarEstoqueVM.ProdutoId,
                     NomeProduto = criarEstoqueVM.NomeProduto,
                     Quantidade = criarEstoqueVM.Quantidade,
-                    DataChegada = criarEstoqueVM.DataChegada
+                    DataChegada = DateTime.Now 
                 };
 
+                
                 _db.Estoques.Add(estoque);
                 await _db.SaveChangesAsync();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Criar", "Produto", new { estoqueId = estoque.Id });
             }
 
             return View(criarEstoqueVM);
@@ -68,7 +68,6 @@ namespace Octavados.Controllers
 
             var editarEstoqueVM = new EditarEstoqueVM
             {
-                ProdutoId = estoque.ProdutoId,
                 NomeProduto = estoque.NomeProduto,
                 DataChegada = estoque.DataChegada,
                 Quantidade = estoque.Quantidade
