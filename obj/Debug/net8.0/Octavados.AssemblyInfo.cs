@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Octavados")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ed275786e5b38813d7a054d8be8f05c4ef830738")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+93d9fae724d02ac5b13746bb6894dab146a9df62")]
 [assembly: System.Reflection.AssemblyProductAttribute("Octavados")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Octavados")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
