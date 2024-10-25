@@ -44,15 +44,15 @@ namespace Octavados.Controllers
         {
             if (ModelState.IsValid)
             {
-    
+
                 var estoque = new Estoque
                 {
                     NomeProduto = criarEstoqueVM.NomeProduto,
                     Quantidade = criarEstoqueVM.Quantidade,
-                    DataChegada = DateTime.Now 
+                    DataChegada = DateTime.Now
                 };
 
-                
+
                 _db.Estoques.Add(estoque);
                 await _db.SaveChangesAsync();
 
@@ -69,11 +69,12 @@ namespace Octavados.Controllers
             var editarEstoqueVM = new EditarEstoqueVM
             {
                 NomeProduto = estoque.NomeProduto,
-                DataChegada = estoque.DataChegada,
-                Quantidade = estoque.Quantidade
+                Quantidade = estoque.Quantidade,
+                QuantidadeAdicionada = estoque.QuantidadeAdicionada,
+                DataAtualizacao = estoque.DataAtualizacao
             };
-
             return View(editarEstoqueVM);
+
         }
 
         [HttpPost]
@@ -84,10 +85,10 @@ namespace Octavados.Controllers
             {
                 var estoque = await _db.Estoques.FindAsync(id);
 
-                estoque.ProdutoId = editarEstoqueVM.ProdutoId;
                 estoque.NomeProduto = editarEstoqueVM.NomeProduto;
-                estoque.DataChegada = editarEstoqueVM.DataChegada;
-                estoque.Quantidade = editarEstoqueVM.Quantidade;
+                estoque.Quantidade += editarEstoqueVM.Quantidade; 
+                estoque.QuantidadeAdicionada = editarEstoqueVM.Quantidade; 
+                estoque.DataAtualizacao = DateTime.Now;
 
                 _db.Estoques.Update(estoque);
                 await _db.SaveChangesAsync();
