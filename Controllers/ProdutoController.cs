@@ -24,7 +24,7 @@ namespace Octavados.Controllers
 
             var produtosNovo = produtos.Select(p => new IndexDeProdutosVM
             {
-                Id = p.Id,
+                ProdutoId = p.Id,
                 Nome = p.Nome,
                 Preco = p.Preco,
                 Marca = p.Marca,
@@ -53,7 +53,7 @@ namespace Octavados.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Criar(CriarProdutoVM produtoVM, int estoqueId)
+        public async Task<IActionResult> Criar(CriarProdutoVM produtoVM)
         {
             if (ModelState.IsValid)
             {
@@ -65,19 +65,18 @@ namespace Octavados.Controllers
                     Marca = produtoVM.Marca,
                     ImagemUrl = produtoVM.ImagemUrl,
                     CategoriaId = produtoVM.CategoriaId,
-                    EstoqueId = produtoVM.EstoqueId
                 };
 
                 _db.Produtos.Add(produto);
                 await _db.SaveChangesAsync();
 
-                var estoque = await _db.Estoques.FindAsync(estoqueId);
+                var estoque = await _db.Estoques.FindAsync(produto.Estoque?.Id);
                 if (estoque != null)
                 {
                     estoque.ProdutoId = produto.Id;
                     await _db.SaveChangesAsync();
                 }
-            
+
 
                 return RedirectToAction("Index");
             }
@@ -89,15 +88,15 @@ namespace Octavados.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Editar(int id)
+        public async Task<IActionResult> Editar(int produtoId)
         {
             var produto = await _db.Produtos
                 .Include(p => p.Estoque)
-                .FirstOrDefaultAsync(p => p.Id == id);
+                .FirstOrDefaultAsync(p => p.Id == produtoId);
 
             var viewModel = new EditarProdutoVM
             {
-                Id = produto.Id,
+                ProdutoId = produto.Id,
                 Nome = produto.Nome,
                 Preco = produto.Preco,
                 Marca = produto.Marca,
@@ -118,7 +117,12 @@ namespace Octavados.Controllers
             {
                 var produto = await _db.Produtos
                 .Include(p => p.Estoque)
-                .FirstOrDefaultAsync(p => p.Id == viewModel.Id);
+                .FirstOrDefaultAsync(p => p.Id == viewModel.ProdutoId);
+                
+                if (produto == null)
+                {
+                    return NotFound(); // Retorna um erro 404 se o produto não for encontrado
+                }
 
                 produto.Nome = viewModel.Nome;
                 produto.Preco = viewModel.Preco;

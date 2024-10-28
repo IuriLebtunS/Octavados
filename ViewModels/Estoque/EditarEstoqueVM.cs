@@ -19,5 +19,6 @@ namespace Octavados.ViewModels
         [Display(Name = "Atualizacao Do Estoque")]
         [DataType(DataType.Date)]
         public DateTime DataAtualizacao { get; set; } = DateTime.Now;
+        public string AtualizadoPor { get; set; }
     }
 }

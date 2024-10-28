@@ -12,15 +12,15 @@ using Octavados.Data;
 namespace Octavados.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20241025201147_AddQuantidadeAdicionadaAndDataAtualizacaoToEstoque")]
-    partial class AddQuantidadeAdicionadaAndDataAtualizacaoToEstoque
+    [Migration("20241028190122_ApagueiumaPropiedadeDeEstoque")]
+    partial class ApagueiumaPropiedadeDeEstoque
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.1")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -111,9 +111,6 @@ namespace Octavados.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CategoriaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EstoqueId")
                         .HasColumnType("int");
 
                     b.Property<string>("ImagemUrl")

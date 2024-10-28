@@ -14,13 +14,7 @@ public class Contexto : DbContext
     public DbSet<Estoque> Estoques { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Configurando a relação um-para-um entre Produto e Estoque
-        modelBuilder.Entity<Produto>()
-            .HasOne(p => p.Estoque)
-            .WithOne(e => e.Produto)
-            .HasForeignKey<Estoque>(e => e.ProdutoId); // Supondo que ProdutoId é a chave estrangeira em Estoque
-
-        // Outras configurações de modelo podem ser adicionadas aqui
+    
     }
 
 }

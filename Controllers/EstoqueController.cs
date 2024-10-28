@@ -23,7 +23,7 @@ namespace Octavados.Controllers
                 .OrderBy(c => c.DataChegada)
                 .Select(c => new IndexEstoqueVM
                 {
-                    Id = c.Id,
+                    ProdutoId = c.Id,
                     NomeProduto = c.NomeProduto,
                     DataChegada = c.DataChegada,
                     Quantidade = c.Quantidade
@@ -56,39 +56,41 @@ namespace Octavados.Controllers
                 _db.Estoques.Add(estoque);
                 await _db.SaveChangesAsync();
 
-                return RedirectToAction("Criar", "Produto", new { estoqueId = estoque.Id });
+                return RedirectToAction("Criar", "Produto", new { estoqueId = estoque.ProdutoId });
             }
 
             return View(criarEstoqueVM);
         }
 
-        public async Task<IActionResult> Editar(int id)
+        public async Task<IActionResult> Editar(int produtoId)
         {
-            var estoque = await _db.Estoques.FindAsync(id);
-
+            var estoque = await _db.Estoques.FirstOrDefaultAsync(e => e.ProdutoId == produtoId); 
+            
             var editarEstoqueVM = new EditarEstoqueVM
             {
+                ProdutoId = estoque.Id,
                 NomeProduto = estoque.NomeProduto,
                 Quantidade = estoque.Quantidade,
                 QuantidadeAdicionada = estoque.QuantidadeAdicionada,
                 DataAtualizacao = estoque.DataAtualizacao
+
             };
             return View(editarEstoqueVM);
 
         }
 
         [HttpPost]
-        public async Task<IActionResult> Editar(int id, EditarEstoqueVM editarEstoqueVM)
+        public async Task<IActionResult> Editar(EditarEstoqueVM editarEstoqueVM)
         {
 
             if (ModelState.IsValid)
             {
-                var estoque = await _db.Estoques.FindAsync(id);
+                var estoque = await _db.Estoques.FirstOrDefaultAsync(e => e.ProdutoId == editarEstoqueVM.ProdutoId);
 
                 estoque.NomeProduto = editarEstoqueVM.NomeProduto;
-                estoque.Quantidade += editarEstoqueVM.Quantidade; 
-                estoque.QuantidadeAdicionada = editarEstoqueVM.Quantidade; 
+                estoque.Quantidade += editarEstoqueVM.Quantidade;
                 estoque.DataAtualizacao = DateTime.Now;
+
 
                 _db.Estoques.Update(estoque);
                 await _db.SaveChangesAsync();

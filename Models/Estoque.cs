@@ -11,6 +11,7 @@ namespace Octavados.Models
         public Produto Produto { get; set; }
         public int QuantidadeAdicionada { get; set; }  
         public DateTime DataAtualizacao { get; set; } 
+    
     }
 
 }
