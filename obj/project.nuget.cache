@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GI7DojZQrPY=",
+  "dgSpecHash": "uNQgHyS7Q8Q=",
   "success": true,
-  "projectFilePath": "c:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\Octavados.csproj",
+  "projectFilePath": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\Octavados.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lebtu\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\lebtu\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
