@@ -5,6 +5,7 @@ namespace Octavados.ViewModels
 {
     public class DetalhesEstoqueVM
     {
+        public int Id { get; set; }
         public int ProdutoId { get; set; }
 
         [Display(Name = "Quantidade Adicionada na Última Atualização")]

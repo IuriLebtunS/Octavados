@@ -4,6 +4,7 @@ namespace Octavados.ViewModels
 {
     public class CriarEstoqueVM
     {
+        
         [Display(Name = "Produto")]
         public int ProdutoId { get; set; }
 

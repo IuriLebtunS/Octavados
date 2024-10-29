@@ -88,11 +88,12 @@ namespace Octavados.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Editar(int produtoId)
+        public async Task<IActionResult> Editar(int Id)
         {
             var produto = await _db.Produtos
                 .Include(p => p.Estoque)
-                .FirstOrDefaultAsync(p => p.Id == produtoId);
+                .FirstOrDefaultAsync(p => p.Id == Id);
+
 
             var viewModel = new EditarProdutoVM
             {
@@ -101,12 +102,10 @@ namespace Octavados.Controllers
                 Preco = produto.Preco,
                 Marca = produto.Marca,
                 ImagemUrl = produto.ImagemUrl,
-                CategoriaId = produto.CategoriaId,
-
+                CategoriaId = produto.CategoriaId
             };
 
             await CarregarViewDataCategorias();
-
             return View(viewModel);
         }
 
@@ -117,12 +116,7 @@ namespace Octavados.Controllers
             {
                 var produto = await _db.Produtos
                 .Include(p => p.Estoque)
-                .FirstOrDefaultAsync(p => p.Id == viewModel.ProdutoId);
-                
-                if (produto == null)
-                {
-                    return NotFound(); // Retorna um erro 404 se o produto não for encontrado
-                }
+                .FirstOrDefaultAsync(p => p.Id == viewModel.Id);
 
                 produto.Nome = viewModel.Nome;
                 produto.Preco = viewModel.Preco;

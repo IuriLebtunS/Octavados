@@ -62,18 +62,18 @@ namespace Octavados.Controllers
             return View(criarEstoqueVM);
         }
 
-        public async Task<IActionResult> Editar(int produtoId)
+        public async Task<IActionResult> Editar(int Id)
         {
-            var estoque = await _db.Estoques.FirstOrDefaultAsync(e => e.ProdutoId == produtoId); 
-            
+            var estoque = await _db.Estoques.FirstOrDefaultAsync(e => e.Id == Id);
+
             var editarEstoqueVM = new EditarEstoqueVM
             {
-                ProdutoId = estoque.Id,
+                Id = estoque.Id,
+                ProdutoId = estoque.ProdutoId, 
                 NomeProduto = estoque.NomeProduto,
                 Quantidade = estoque.Quantidade,
-                QuantidadeAdicionada = estoque.QuantidadeAdicionada,
-                DataAtualizacao = estoque.DataAtualizacao
-
+                QuantidadeAdicionada = estoque.QuantidadeAdicionada ?? 0,
+                DataAtualizacao = estoque.DataAtualizacao ?? DateTime.Now
             };
             return View(editarEstoqueVM);
 
@@ -85,12 +85,11 @@ namespace Octavados.Controllers
 
             if (ModelState.IsValid)
             {
-                var estoque = await _db.Estoques.FirstOrDefaultAsync(e => e.ProdutoId == editarEstoqueVM.ProdutoId);
+                var estoque = await _db.Estoques.FirstOrDefaultAsync(e => e.Id == editarEstoqueVM.Id);
 
                 estoque.NomeProduto = editarEstoqueVM.NomeProduto;
                 estoque.Quantidade += editarEstoqueVM.Quantidade;
                 estoque.DataAtualizacao = DateTime.Now;
-
 
                 _db.Estoques.Update(estoque);
                 await _db.SaveChangesAsync();
@@ -100,7 +99,5 @@ namespace Octavados.Controllers
 
             return View(editarEstoqueVM);
         }
-
-
     }
 }

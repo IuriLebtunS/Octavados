@@ -4,7 +4,8 @@ namespace Octavados.ViewModels
 {
     public class EditarEstoqueVM
     {
-        public int ProdutoId { get; set; }
+        public int Id { get; set; }
+        public int? ProdutoId { get; set; }
 
         [Display(Name = "Produto")]
         public string NomeProduto { get; set; }
@@ -19,6 +20,5 @@ namespace Octavados.ViewModels
         [Display(Name = "Atualizacao Do Estoque")]
         [DataType(DataType.Date)]
         public DateTime DataAtualizacao { get; set; } = DateTime.Now;
-        public string AtualizadoPor { get; set; }
     }
 }

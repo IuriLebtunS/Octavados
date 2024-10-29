@@ -8,9 +8,9 @@ namespace Octavados.Models
         public int Quantidade { get; set; }
         public DateTime DataChegada { get; set; } = DateTime.Now;
         public int? ProdutoId { get; set; } 
-        public Produto Produto { get; set; }
-        public int QuantidadeAdicionada { get; set; }  
-        public DateTime DataAtualizacao { get; set; } 
+        public Produto? Produto { get; set; }
+        public int? QuantidadeAdicionada { get; set; }  
+        public DateTime? DataAtualizacao { get; set; } 
     
     }
 
