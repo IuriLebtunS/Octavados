@@ -35,8 +35,6 @@ namespace Octavados.Controllers
             return View(produtosNovo);
         }
 
-
-
         public async Task CarregarViewDataCategorias()
         {
             var categorias = await _db.Categorias
@@ -65,18 +63,19 @@ namespace Octavados.Controllers
                     Marca = produtoVM.Marca,
                     ImagemUrl = produtoVM.ImagemUrl,
                     CategoriaId = produtoVM.CategoriaId,
+                    QuantidadeDeEstoque = produtoVM.Quantidade
                 };
+
+                var historicoEstoque = new HistoricoEstoque
+                {
+                    Quantidade = produtoVM.Quantidade,
+                    DataChegada = DateTime.Now
+                };
+
+                produto.HistoricoEstoques.Add(historicoEstoque);
 
                 _db.Produtos.Add(produto);
                 await _db.SaveChangesAsync();
-
-                var estoque = await _db.Estoques.FindAsync(produto.Estoque?.Id);
-                if (estoque != null)
-                {
-                    estoque.ProdutoId = produto.Id;
-                    await _db.SaveChangesAsync();
-                }
-
 
                 return RedirectToAction("Index");
             }
@@ -91,9 +90,7 @@ namespace Octavados.Controllers
         public async Task<IActionResult> Editar(int Id)
         {
             var produto = await _db.Produtos
-                .Include(p => p.Estoque)
-                .FirstOrDefaultAsync(p => p.Id == Id);
-
+         .FirstOrDefaultAsync(p => p.Id == Id);
 
             var viewModel = new EditarProdutoVM
             {
@@ -114,9 +111,10 @@ namespace Octavados.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Busca o produto pelo Id
                 var produto = await _db.Produtos
-                .Include(p => p.Estoque)
-                .FirstOrDefaultAsync(p => p.Id == viewModel.Id);
+                    .FirstOrDefaultAsync(p => p.Id == viewModel.ProdutoId);
+
 
                 produto.Nome = viewModel.Nome;
                 produto.Preco = viewModel.Preco;
@@ -127,7 +125,7 @@ namespace Octavados.Controllers
                 _db.Entry(produto).State = EntityState.Modified;
                 await _db.SaveChangesAsync();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index"); 
             }
 
             await CarregarViewDataCategorias();

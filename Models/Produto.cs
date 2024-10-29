@@ -11,9 +11,10 @@ public class Produto
     public decimal Preco { get; set; }
     public string Marca { get; set; }
     public string ImagemUrl { get; set; }
-    public Estoque Estoque { get; set; }
     public int CategoriaId { get; set; }
 
     [Required(ErrorMessage = "O campo Categoria é obrigatório.")]
     public Categoria Categoria { get; set; }
+    public List<HistoricoEstoque> HistoricoEstoques { get; set; } = new List<HistoricoEstoque>(); 
+    public int QuantidadeDeEstoque { get; set; } 
 }

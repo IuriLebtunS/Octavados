@@ -63,7 +63,7 @@ namespace Octavados.Migrations
                     b.ToTable("Detalhes");
                 });
 
-            modelBuilder.Entity("Octavados.Models.Estoque", b =>
+            modelBuilder.Entity("Octavados.Models.HistoricoEstoque", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -71,32 +71,23 @@ namespace Octavados.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("DataAtualizacao")
+                    b.Property<DateTime>("DataAtualizacao")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataChegada")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("NomeProduto")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ProdutoId")
+                    b.Property<int>("ProdutoId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantidade")
                         .HasColumnType("int");
 
-                    b.Property<int?>("QuantidadeAdicionada")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ProdutoId")
-                        .IsUnique()
-                        .HasFilter("[ProdutoId] IS NOT NULL");
+                    b.HasIndex("ProdutoId");
 
-                    b.ToTable("Estoques");
+                    b.ToTable("HistoricoEstoque");
                 });
 
             modelBuilder.Entity("Octavados.Models.Produto", b =>
@@ -124,6 +115,9 @@ namespace Octavados.Migrations
 
                     b.Property<decimal>("Preco")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("QuantidadeDeEstoque")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -173,11 +167,13 @@ namespace Octavados.Migrations
                     b.Navigation("Produto");
                 });
 
-            modelBuilder.Entity("Octavados.Models.Estoque", b =>
+            modelBuilder.Entity("Octavados.Models.HistoricoEstoque", b =>
                 {
                     b.HasOne("Octavados.Models.Produto", "Produto")
-                        .WithOne("Estoque")
-                        .HasForeignKey("Octavados.Models.Estoque", "ProdutoId");
+                        .WithMany("HistoricoEstoques")
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Produto");
                 });
@@ -211,8 +207,7 @@ namespace Octavados.Migrations
 
             modelBuilder.Entity("Octavados.Models.Produto", b =>
                 {
-                    b.Navigation("Estoque")
-                        .IsRequired();
+                    b.Navigation("HistoricoEstoques");
                 });
 #pragma warning restore 612, 618
         }
