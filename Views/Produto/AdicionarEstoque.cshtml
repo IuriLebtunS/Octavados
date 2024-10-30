@@ -1,0 +1,36 @@
+@model Octavados.ViewModels.AdicionarEstoqueVM
+
+@{
+    ViewData["Title"] = "Adicionar Estoque";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="AdicionarEstoque" method="post">
+    <div class="form-group">
+        <label asp-for="ProdutoId" class="control-label">Produto</label>
+        <select asp-for="ProdutoId" asp-items="@(ViewData["Produtos"] as SelectList)" class="form-control">
+            <option value="">Selecione um produto</option>
+        </select>
+        <span asp-validation-for="ProdutoId" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group mt-3">
+        <label asp-for="NovoEstoque" class="control-label">Quantidade a Adicionar</label>
+        <input asp-for="NovoEstoque" class="form-control" />
+        <span asp-validation-for="NovoEstoque" class="text-danger"></span>
+    </div>
+
+    <div class='mb-3 d-flex justify-content-end'>
+        <a class='btn btn-secondary' asp-action="Index">
+            <i class="fa-solid fa-rotate-left"></i>
+            Cancelar
+        </a>
+        <button type="submit" class='btn btn-primary ms-2'>
+            <i class="fa-regular fa-circle-check"></i>
+            Adicionar Estoque
+        </button>
+    </div>
+</form>

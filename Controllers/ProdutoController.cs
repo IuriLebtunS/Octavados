@@ -29,7 +29,8 @@ namespace Octavados.Controllers
                 Preco = p.Preco,
                 Marca = p.Marca,
                 Imagem = p.ImagemUrl,
-                CategoriaNome = p.Categoria.Nome
+                CategoriaNome = p.Categoria.Nome,
+                Quantidade = p.QuantidadeDeEstoque
             }).ToList();
 
             return View(produtosNovo);
@@ -90,11 +91,11 @@ namespace Octavados.Controllers
         public async Task<IActionResult> Editar(int Id)
         {
             var produto = await _db.Produtos
-         .FirstOrDefaultAsync(p => p.Id == Id);
+               .FirstOrDefaultAsync(p => p.Id == Id);
 
             var viewModel = new EditarProdutoVM
             {
-                ProdutoId = produto.Id,
+                Id = produto.Id,
                 Nome = produto.Nome,
                 Preco = produto.Preco,
                 Marca = produto.Marca,
@@ -111,10 +112,8 @@ namespace Octavados.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Busca o produto pelo Id
                 var produto = await _db.Produtos
-                    .FirstOrDefaultAsync(p => p.Id == viewModel.ProdutoId);
-
+                    .FirstOrDefaultAsync(p => p.Id == viewModel.Id);
 
                 produto.Nome = viewModel.Nome;
                 produto.Preco = viewModel.Preco;
@@ -125,7 +124,7 @@ namespace Octavados.Controllers
                 _db.Entry(produto).State = EntityState.Modified;
                 await _db.SaveChangesAsync();
 
-                return RedirectToAction("Index"); 
+                return RedirectToAction("Index");
             }
 
             await CarregarViewDataCategorias();
@@ -134,6 +133,39 @@ namespace Octavados.Controllers
             ModelState.AddModelError("CategoriaId", "Selecione uma categoria.");
 
             return View(viewModel);
+        }
+
+        public async Task<IActionResult> AdicionarEstoque()
+        {
+            var produtos = await _db.Produtos.Select(p => new { p.Id, p.Nome }).ToListAsync();
+            ViewData["Produtos"] = new SelectList(produtos, "Id", "Nome");
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AdicionarEstoque(AdicionarEstoqueVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var produto = await _db.Produtos.FindAsync(model.ProdutoId);
+
+                produto.QuantidadeDeEstoque += model.NovoEstoque;
+                
+                var historico = new HistoricoEstoque
+                {
+                    ProdutoId = produto.Id,
+                    Quantidade = model.NovoEstoque,
+                    DataChegada = DateTime.Now
+                };
+
+                produto.HistoricoEstoques.Add(historico);
+                await _db.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(model);
         }
 
     }

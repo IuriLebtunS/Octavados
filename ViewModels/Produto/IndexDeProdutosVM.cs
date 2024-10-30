@@ -8,5 +8,7 @@ namespace Octavados.ViewModels
         public string Marca { get; set; }
         public string Imagem { get; set; }
         public string CategoriaNome { get; set; }
+        public int Quantidade { get; set; }
+
     }
 }
