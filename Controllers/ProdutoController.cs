@@ -16,22 +16,38 @@ namespace Octavados.Controllers
             _db = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string nomeProduto, int? categoriaId, int? id, string marca, int page = 1)
         {
-            var produtos = await _db.Produtos
+            var produtos = _db.Produtos
                 .Include(p => p.Categoria)
-                .ToListAsync();
+                .AsNoTracking()
+                .AsQueryable();
 
-            var produtosNovo = produtos.Select(p => new IndexDeProdutosVM
+            if (!string.IsNullOrEmpty(nomeProduto))
+                produtos = produtos.Where(p => p.Nome.Contains(nomeProduto));
+
+            if (categoriaId.HasValue && categoriaId.Value > 0)
+                produtos = produtos.Where(p => p.CategoriaId == categoriaId.Value);
+
+            if (id.HasValue && id.Value > 0)
+                produtos = produtos.Where(p => p.Id == id.Value);
+
+            if (!string.IsNullOrEmpty(marca))
+                produtos = produtos.Where(p => p.Marca.Contains(marca));
+
+            var categorias = await _db.Categorias.ToListAsync();
+            ViewData["categorias"] = new SelectList(categorias, "Id", "Nome", categoriaId);
+
+            var produtosNovo = await produtos.Select(p => new IndexDeProdutosVM
             {
                 ProdutoId = p.Id,
                 Nome = p.Nome,
                 Preco = p.Preco,
-                Marca = p.Marca,
                 Imagem = p.ImagemUrl,
                 CategoriaNome = p.Categoria.Nome,
-                Quantidade = p.QuantidadeDeEstoque
-            }).ToList();
+                Quantidade = p.QuantidadeDeEstoque,
+                Marca = p.Marca
+            }).ToListAsync();
 
             return View(produtosNovo);
         }
@@ -151,7 +167,7 @@ namespace Octavados.Controllers
                 var produto = await _db.Produtos.FindAsync(model.ProdutoId);
 
                 produto.QuantidadeDeEstoque += model.NovoEstoque;
-                
+
                 var historico = new HistoricoEstoque
                 {
                     ProdutoId = produto.Id,

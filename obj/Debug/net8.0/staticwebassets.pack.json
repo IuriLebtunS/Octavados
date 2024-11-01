@@ -1,10 +1,6 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Octavados.bundle.scp.css",
-      "PackagePath": "staticwebassets\\Octavados.bundle.scp.css"
-    },
-    {
       "Id": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\Imagems\\Baixo1.jpg",
       "PackagePath": "staticwebassets\\Imagems\\Baixo1.jpg"
     },
@@ -15,6 +11,14 @@
     {
       "Id": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\Imagems\\Bateria2.jpg",
       "PackagePath": "staticwebassets\\Imagems\\Bateria2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\Imagems\\Captura de tela 2024-03-18 120901.jpg",
+      "PackagePath": "staticwebassets\\Imagems\\Captura de tela 2024-03-18 120901.jpg"
+    },
+    {
+      "Id": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\Imagems\\Captura de tela 2024-03-18 120901.png",
+      "PackagePath": "staticwebassets\\Imagems\\Captura de tela 2024-03-18 120901.png"
     },
     {
       "Id": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\Imagems\\Guitarra1.jpg",
@@ -39,10 +43,6 @@
     {
       "Id": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\Imagems\\Piano3.jpg",
       "PackagePath": "staticwebassets\\Imagems\\Piano3.jpg"
-    },
-    {
-      "Id": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\css\\site.css",
-      "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\favicon.ico",

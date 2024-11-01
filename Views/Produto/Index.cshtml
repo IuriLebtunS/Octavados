@@ -6,13 +6,46 @@
 
 <div class="d-flex justify-content-between">
     <h2>
-        <i class="fas fa-boxes-stacked"></i>
+        <i class="fas fa-box-open"></i>
         @ViewData["Title"]
     </h2>
+
+    <div class='ms-auto'>
+        <a asp-action="Criar" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i>
+            Novo Produto
+        </a>
+    </div>
+
 </div>
 <br>
 
+<form asp-action="Index" method="get" class="form-group mb-3">
+    <div class="row">
+        <div class='col-md-2'>
+            <input type="text" class="form-control" name="nomeProduto" placeholder="Nome do Produto" />
+        </div>
 
+        <div class='col-md-2'>
+            <input type="text" class="form-control" name="marca" placeholder="Marca" />
+        </div>
+
+        <div class='col-md-2'>
+            <select class="form-select" name='categoriaId' id='selectCategorias'
+                asp-items='(SelectList)ViewData["categorias"]'>
+                <option value=''>Categoria</option>
+            </select>
+        </div>
+
+        <div class='col-md-2'>
+            <input type="number" class="form-control" name="id" placeholder="ID do Produto" />
+        </div>
+
+        <div class='col-md-4 text-end'>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+    </div>
+</form>
 
 <div class="list-group">
     @if (Model.Any())
@@ -20,18 +53,18 @@
         foreach (var produto in Model)
         {
             <a class="list-group-item list-group-item-action" asp-action="Editar" asp-route-id="@produto.ProdutoId">
-                <div class="row">
-                    <div class="col-1 col-auto me-auto border-end text-center d-flex align-items-center justify-content-center"
-                        style="color: black;">
-                        <div>
-                            <span style="font-weight: bold;">@produto.ProdutoId.ToString("0000")</span><br>
-                        </div>
+                 <div class="d-flex justify-content-around">
+                    <div class="col text-center">
+                        <span>@produto.ProdutoId.ToString("0000")</span>
                     </div>
-                    <div class="col-md-10" style="font-weight: bold;">
+                    <div class="col text-center">
                         <strong>@produto.Nome</strong><br>
-                        <span style="font-weight: bold;">Preço: @produto.Preco - Marca: @produto.Marca</span><br>
-                        <span>Categoria: @(produto.CategoriaNome ?? "N/A")</span>
-                        <span>Quantidade: @produto.Quantidade</span>
+                        <span>Categoria: @(produto.CategoriaNome ?? "N/A")</span><br>
+                        <span>Preço: @produto.Preco</span>
+                    </div>
+                    <div class="col text-end">
+                        <span>Marca: @produto.Marca</span><br>
+                        <span>Estoque: @produto.Quantidade</span>
                     </div>
                 </div>
             </a>
@@ -39,7 +72,7 @@
     }
     else
     {
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-around">
 
             <h2>
                 <i class="fa-solid fa-ghost"></i>
