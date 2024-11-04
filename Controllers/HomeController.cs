@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Octavados.Data;
 using Octavados.Models;
 
 namespace Octavados.Controllers;
@@ -15,6 +17,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+       
         return View();
     }
 

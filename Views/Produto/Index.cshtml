@@ -54,15 +54,15 @@
         {
             <a class="list-group-item list-group-item-action" asp-action="Editar" asp-route-id="@produto.ProdutoId">
                  <div class="d-flex justify-content-around">
-                    <div class="col text-center">
+                    <div class="col-1 text-start">
                         <span>@produto.ProdutoId.ToString("0000")</span>
                     </div>
-                    <div class="col text-center">
+                    <div class="col-10 text-start">
                         <strong>@produto.Nome</strong><br>
                         <span>Categoria: @(produto.CategoriaNome ?? "N/A")</span><br>
                         <span>Preço: @produto.Preco</span>
                     </div>
-                    <div class="col text-end">
+                    <div class="col-1 text-end">
                         <span>Marca: @produto.Marca</span><br>
                         <span>Estoque: @produto.Quantidade</span>
                     </div>

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1S0VXtm62mrR87K9BYMuOqzTYY0WWssX2ISLy5s4qi8=",
+  "Hash": "ukj0fOkU0TQY1rm3FykbGBx2aKLpkP4/e3tHpNsAypA=",
   "Source": "Octavados",
   "BasePath": "_content/Octavados",
   "Mode": "Default",
@@ -186,6 +186,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Imagems\\Guitarra3.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\Imagems\\OfertaDoMes.jpg",
+      "SourceId": "Octavados",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\",
+      "BasePath": "_content/Octavados",
+      "RelativePath": "Imagems/OfertaDoMes.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Imagems\\OfertaDoMes.jpg"
     },
     {
       "Identity": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\Imagems\\Piano1.jpg",
