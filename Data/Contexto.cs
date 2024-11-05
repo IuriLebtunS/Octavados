@@ -1,3 +1,4 @@
+using App.Models;
 using Microsoft.EntityFrameworkCore;
 using Octavados.Models;
 
@@ -11,6 +12,7 @@ public class Contexto : DbContext
     public DbSet<Detalhe> Detalhes { get; set; }
     public DbSet<Categoria> Categorias { get; set; }
     public DbSet<Venda> Vendas { get; set; }
+    public DbSet<Usuario>Usuarios { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
     
