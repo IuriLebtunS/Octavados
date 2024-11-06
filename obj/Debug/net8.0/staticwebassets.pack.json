@@ -17,10 +17,6 @@
       "PackagePath": "staticwebassets\\Imagems\\Captura de tela 2024-03-18 120901.jpg"
     },
     {
-      "Id": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\Imagems\\Captura de tela 2024-03-18 120901.png",
-      "PackagePath": "staticwebassets\\Imagems\\Captura de tela 2024-03-18 120901.png"
-    },
-    {
       "Id": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\Imagems\\Guitarra1.jpg",
       "PackagePath": "staticwebassets\\Imagems\\Guitarra1.jpg"
     },
@@ -31,6 +27,10 @@
     {
       "Id": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\Imagems\\Guitarra3.jpg",
       "PackagePath": "staticwebassets\\Imagems\\Guitarra3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\Imagems\\LogoLogin.png",
+      "PackagePath": "staticwebassets\\Imagems\\LogoLogin.png"
     },
     {
       "Id": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\Imagems\\OfertaDoMes.jpg",

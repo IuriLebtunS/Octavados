@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ukj0fOkU0TQY1rm3FykbGBx2aKLpkP4/e3tHpNsAypA=",
+  "Hash": "TNr8mzsbmtjJsNgVAW1W6Q4fNXuHH4kfFsA62CNXAfQ=",
   "Source": "Octavados",
   "BasePath": "_content/Octavados",
   "Mode": "Default",
@@ -112,25 +112,6 @@
       "OriginalItemSpec": "wwwroot\\Imagems\\Captura de tela 2024-03-18 120901.jpg"
     },
     {
-      "Identity": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\Imagems\\Captura de tela 2024-03-18 120901.png",
-      "SourceId": "Octavados",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\",
-      "BasePath": "_content/Octavados",
-      "RelativePath": "Imagems/Captura de tela 2024-03-18 120901.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Imagems\\Captura de tela 2024-03-18 120901.png"
-    },
-    {
       "Identity": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\Imagems\\Guitarra1.jpg",
       "SourceId": "Octavados",
       "SourceType": "Discovered",
@@ -186,6 +167,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Imagems\\Guitarra3.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\Imagems\\LogoLogin.png",
+      "SourceId": "Octavados",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\",
+      "BasePath": "_content/Octavados",
+      "RelativePath": "Imagems/LogoLogin.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Imagems\\LogoLogin.png"
     },
     {
       "Identity": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\Imagems\\OfertaDoMes.jpg",
