@@ -18,8 +18,8 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\lebtu\Documents\cosasvarias\Octavados
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/lebtu/Documents/cosasvarias/Octavados/Views/Autenticador/Login.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0ZW50aWNhZG9yXExvZ2luLmNzaHRtbA==
+[C:/Users/lebtu/Documents/cosasvarias/Octavados/Views/Autenticacao/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0ZW50aWNhY2FvXExvZ2luLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/lebtu/Documents/cosasvarias/Octavados/Views/Categoria/Criar.cshtml]
@@ -68,6 +68,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/lebtu/Documents/cosasvarias/Octavados/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/lebtu/Documents/cosasvarias/Octavados/Views/Shared/_LayoutAutenticacao.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRBdXRlbnRpY2FjYW8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/lebtu/Documents/cosasvarias/Octavados/Views/Shared/_ValidationScriptsPartial.cshtml]

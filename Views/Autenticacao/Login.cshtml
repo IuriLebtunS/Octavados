@@ -1,0 +1,55 @@
+﻿@model App.ViewModels.LoginVM
+
+@{
+    Layout = "_LayoutAutenticacao";
+    ViewData["Title"] = "Entrar";
+}
+
+<form asp-action="Login" method="post">
+    <img src="~/Imagems/Captura de tela 2024-03-18 120901.png" alt="Logo" class="img-fluid mb-4">
+    <p class="text-center"></p>
+
+     <div class="form-floating mb-3 form-field m-auto">
+        <input asp-for="Email" class="form-control" id="email" placeholder="name@example.com" required aria-label="Email" />
+        <label asp-for="Email">Email</label>
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-floating mb-3 form-field m-auto">
+        <input asp-for="Senha" type="password" class="form-control" id="senha" placeholder="Password" required aria-label="Senha" />
+        <label asp-for="Senha">Senha</label>
+        <span asp-validation-for="Senha" class="text-danger"></span>
+    </div>
+
+    @if (!string.IsNullOrEmpty(ViewData["LoginErro"] as string))
+    {
+        <p class="text-danger text-center">
+            ⚠️ @ViewData["LoginErro"]
+        </p>
+    }
+
+    <div class="form-check my-3 text-start" style="max-width: 280px; margin: 0 auto;">
+        <input class="form-check-input" type="checkbox" id="lembrar" checked>
+        <label class="form-check-label ms-2" for="lembrar">
+            Lembrar
+        </label>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary py-2 btn-lg btn-entrar" type="submit">Entrar</button>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <small class="mt-3 text-body-secondary">©@(DateTime.Today.Year)</small>
+    </div>
+</form>
+
+<style>
+    .form-field {
+        max-width: 280px; 
+    }
+
+    .btn-entrar {
+        width: 100%;
+        max-width: 280px;
+    }
+</style>

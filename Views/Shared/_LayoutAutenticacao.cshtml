@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>@ViewData["Title"] - Admin Octavados</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.2/darkly/bootstrap.min.css" integrity="sha512-JjQ+gz9+fc47OLooLs9SDfSSVrHu7ypfFM7Bd+r4dCePQnD/veA7P590ovnFPzldWsPwYRpOK1FnePimGNpdrA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/css/autenticacao.css" />
+</head>
+
+<body class="d-flex align-items-center py-4 bg-dark text-light">
+    
+    <main class="form-signin col-md-6 col-lg-4 m-auto text-center">
+        <div class="container">
+            @RenderBody()
+        </div>
+        @RenderSection("Scripts", required: false)
+    </main>
+
+</body>
+</html>
