@@ -36,7 +36,7 @@ namespace App.Controllers
 
             await tiaIdentity.LoginAsync(usuario.Email, usuario.Email, false, "Usuário");
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Produto");
         }
 
         public async Task<IActionResult> Logout()

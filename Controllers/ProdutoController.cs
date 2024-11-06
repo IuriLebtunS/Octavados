@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Octavados.ViewModels;
@@ -15,7 +16,7 @@ namespace Octavados.Controllers
         {
             _db = context;
         }
-
+        [Authorize]
         public async Task<IActionResult> Index(string nomeProduto, int? categoriaId, int? id, string marca, int page = 1)
         {
             var produtos = _db.Produtos
