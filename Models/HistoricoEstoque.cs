@@ -8,7 +8,7 @@ namespace Octavados.Models
         public int Quantidade { get; set; }
         public DateTime DataChegada { get; set; } = DateTime.Now;
         public Produto Produto { get; set; }
-        public DateTime DataAtualizacao { get; set; }
+        public string Usuario { get; set; } 
 
     }
 }

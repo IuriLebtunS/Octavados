@@ -8,6 +8,8 @@ using Octavados.Data;
 
 namespace Octavados.Controllers
 {
+    [Authorize] 
+
     public class ProdutoController : Controller
     {
         private readonly Contexto _db;
@@ -169,11 +171,14 @@ namespace Octavados.Controllers
 
                 produto.QuantidadeDeEstoque += model.NovoEstoque;
 
+                var usuarioLogado = User.Identity.Name;
+
                 var historico = new HistoricoEstoque
                 {
                     ProdutoId = produto.Id,
                     Quantidade = model.NovoEstoque,
-                    DataChegada = DateTime.Now
+                    DataChegada = DateTime.Now,
+                    Usuario = usuarioLogado,
                 };
 
                 produto.HistoricoEstoques.Add(historico);
@@ -185,5 +190,24 @@ namespace Octavados.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> MovimentoEstoque(int produtoId)
+        {
+            var ultimoMovimento = await _db.Produtos
+                .Where(p => p.Id == produtoId)
+                .Select(p => p.HistoricoEstoques
+                    .OrderByDescending(h => h.DataChegada)
+                    .FirstOrDefault())
+                .FirstOrDefaultAsync();
+
+            var viewModel = new MovimentoEstoqueVM
+            {
+                Usuario = ultimoMovimento.Usuario,
+                Quantidade = ultimoMovimento.Quantidade,
+                DataChegada = ultimoMovimento.DataChegada
+            };
+
+            return View(viewModel);
+        }
     }
+
 }

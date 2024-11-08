@@ -1,0 +1,10 @@
+@model Octavados.ViewModels.MovimentoEstoqueVM
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Detalhes do Último Movimento de Estoque</h4>
+        <p><strong>Quantidade Adicionada:</strong> @Model.Quantidade</p>
+        <p><strong>Usuário Responsável:</strong> @Model.Usuario</p>
+        <p><strong>Data do Movimento:</strong> @Model.DataChegada.ToString("dd/MM/yyyy HH:mm:ss")</p>
+    </div>
+</div>

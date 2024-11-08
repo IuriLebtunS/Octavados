@@ -6,17 +6,21 @@
 }
 
 <form asp-action="Login" method="post">
+    <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+
     <img src="~/Imagems/LogoLogin.png" alt="Logo" class="img-fluid mb-4">
     <p class="text-center"></p>
 
-     <div class="form-floating mb-3 form-field m-auto">
-        <input asp-for="Email" class="form-control" id="email" placeholder="name@example.com" required aria-label="Email" />
+    <div class="form-floating mb-3 form-field m-auto">
+        <input asp-for="Email" class="form-control" id="email" placeholder="name@example.com" required
+            aria-label="Email" />
         <label asp-for="Email">Email</label>
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
 
     <div class="form-floating mb-3 form-field m-auto">
-        <input asp-for="Senha" type="password" class="form-control" id="senha" placeholder="Password" required aria-label="Senha" />
+        <input asp-for="Senha" type="password" class="form-control" id="senha" placeholder="Password" required
+            aria-label="Senha" />
         <label asp-for="Senha">Senha</label>
         <span asp-validation-for="Senha" class="text-danger"></span>
     </div>
@@ -45,7 +49,7 @@
 
 <style>
     .form-field {
-        max-width: 280px; 
+        max-width: 280px;
     }
 
     .btn-entrar {

@@ -16,12 +16,17 @@ namespace App.Controllers
             this.tiaIdentity = tiaIdentity;
         }
 
-        public IActionResult Login() => View();
+        [HttpGet]
+        public IActionResult Login(string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginVM viewmodel)
+        public async Task<IActionResult> Login(LoginVM viewmodel, string returnUrl = null)
         {
-              if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(viewmodel);
             }
@@ -35,6 +40,11 @@ namespace App.Controllers
             }
 
             await tiaIdentity.LoginAsync(usuario.Email, usuario.Email, false, "Usuário");
+
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl); 
+            }
 
             return RedirectToAction("Index", "Produto");
         }
