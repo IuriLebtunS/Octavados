@@ -25,13 +25,6 @@
         <span asp-validation-for="Senha" class="text-danger"></span>
     </div>
 
-    @if (!string.IsNullOrEmpty(ViewData["LoginErro"] as string))
-    {
-        <p class="text-danger text-center">
-            ⚠️ @ViewData["LoginErro"]
-        </p>
-    }
-
     <div class="form-check my-3 text-start" style="max-width: 280px; margin: 0 auto;">
         <input class="form-check-input" type="checkbox" id="lembrar" checked>
         <label class="form-check-label ms-2" for="lembrar">

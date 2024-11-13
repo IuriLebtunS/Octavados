@@ -140,3 +140,6 @@ C:\Users\lebtu\Documents\cosasvarias\Octavados\obj\Debug\net8.0\Octavados.pdb
 C:\Users\lebtu\Documents\cosasvarias\Octavados\obj\Debug\net8.0\Octavados.genruntimeconfig.cache
 C:\Users\lebtu\Documents\cosasvarias\Octavados\obj\Debug\net8.0\ref\Octavados.dll
 C:\Users\lebtu\Documents\cosasvarias\Octavados\bin\Debug\net8.0\TiaIdentity.dll
+C:\Users\lebtu\Documents\cosasvarias\Octavados\bin\Debug\net8.0\X.PagedList.dll
+C:\Users\lebtu\Documents\cosasvarias\Octavados\bin\Debug\net8.0\X.PagedList.Mvc.Core.dll
+C:\Users\lebtu\Documents\cosasvarias\Octavados\obj\Debug\net8.0\Octavados.MvcApplicationPartsAssemblyInfo.cs

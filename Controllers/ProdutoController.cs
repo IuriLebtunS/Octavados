@@ -2,13 +2,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList.Extensions;
 using Octavados.ViewModels;
 using Octavados.Models;
 using Octavados.Data;
 
+
 namespace Octavados.Controllers
 {
-    [Authorize] 
+    [Authorize]
 
     public class ProdutoController : Controller
     {
@@ -21,38 +23,42 @@ namespace Octavados.Controllers
         [Authorize]
         public async Task<IActionResult> Index(string nomeProduto, int? categoriaId, int? id, string marca, int page = 1)
         {
-            var produtos = _db.Produtos
+            var produtosQuery = _db.Produtos
                 .Include(p => p.Categoria)
                 .AsNoTracking()
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(nomeProduto))
-                produtos = produtos.Where(p => p.Nome.Contains(nomeProduto));
+                produtosQuery = produtosQuery.Where(p => p.Nome.Contains(nomeProduto));
 
             if (categoriaId.HasValue && categoriaId.Value > 0)
-                produtos = produtos.Where(p => p.CategoriaId == categoriaId.Value);
+                produtosQuery = produtosQuery.Where(p => p.CategoriaId == categoriaId.Value);
 
             if (id.HasValue && id.Value > 0)
-                produtos = produtos.Where(p => p.Id == id.Value);
+                produtosQuery = produtosQuery.Where(p => p.Id == id.Value);
 
             if (!string.IsNullOrEmpty(marca))
-                produtos = produtos.Where(p => p.Marca.Contains(marca));
+                produtosQuery = produtosQuery.Where(p => p.Marca.Contains(marca));
 
             var categorias = await _db.Categorias.ToListAsync();
             ViewData["categorias"] = new SelectList(categorias, "Id", "Nome", categoriaId);
 
-            var produtosNovo = await produtos.Select(p => new IndexDeProdutosVM
-            {
-                ProdutoId = p.Id,
-                Nome = p.Nome,
-                Preco = p.Preco,
-                Imagem = p.ImagemUrl,
-                CategoriaNome = p.Categoria.Nome,
-                Quantidade = p.QuantidadeDeEstoque,
-                Marca = p.Marca
-            }).ToListAsync();
 
-            return View(produtosNovo);
+            var produtosList = await produtosQuery
+                .OrderBy(p => p.Nome) 
+                .Select(p => new IndexDeProdutosVM
+                {
+                    ProdutoId = p.Id,
+                    Nome = p.Nome,
+                    Preco = p.Preco,
+                    Imagem = p.ImagemUrl,
+                    CategoriaNome = p.Categoria.Nome,
+                    Quantidade = p.QuantidadeDeEstoque,
+                    Marca = p.Marca
+                }).ToListAsync();
+
+            var produtosPaged = produtosList.ToPagedList(page, 10); 
+            return View(produtosPaged);
         }
 
         public async Task CarregarViewDataCategorias()
@@ -78,6 +84,7 @@ namespace Octavados.Controllers
 
                 var produto = new Produto
                 {
+
                     Nome = produtoVM.Nome,
                     Preco = produtoVM.Preco,
                     Marca = produtoVM.Marca,
@@ -89,7 +96,8 @@ namespace Octavados.Controllers
                 var historicoEstoque = new HistoricoEstoque
                 {
                     Quantidade = produtoVM.Quantidade,
-                    DataChegada = DateTime.Now
+                    DataChegada = DateTime.Now,
+                    Usuario = User.Identity.Name
                 };
 
                 produto.HistoricoEstoques.Add(historicoEstoque);
@@ -171,7 +179,7 @@ namespace Octavados.Controllers
 
                 produto.QuantidadeDeEstoque += model.NovoEstoque;
 
-                var usuarioLogado = User.Identity.Name;
+                var usuarioLogado = User.Identity.Name ?? "";
 
                 var historico = new HistoricoEstoque
                 {
@@ -201,6 +209,7 @@ namespace Octavados.Controllers
 
             var viewModel = new MovimentoEstoqueVM
             {
+                ProdutoId = ultimoMovimento.ProdutoId,
                 Usuario = ultimoMovimento.Usuario,
                 Quantidade = ultimoMovimento.Quantidade,
                 DataChegada = ultimoMovimento.DataChegada

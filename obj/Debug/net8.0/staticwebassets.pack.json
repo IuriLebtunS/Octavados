@@ -49,6 +49,10 @@
       "PackagePath": "staticwebassets\\Imagems\\Piano3.jpg"
     },
     {
+      "Id": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\css\\PagedList.css",
+      "PackagePath": "staticwebassets\\css\\PagedList.css"
+    },
+    {
       "Id": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },

@@ -14,9 +14,10 @@ namespace Octavados.ViewModels
         [Required(ErrorMessage = "O preço é obrigatório.")]
         [Display(Name = "Preço")]
         [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = true)]
         public decimal Preco { get; set; }
 
-       [Required(ErrorMessage = "A marca é obrigatória.")]
+        [Required(ErrorMessage = "A marca é obrigatória.")]
         [Display(Name = "Marca")]
         public string Marca { get; set; }
 

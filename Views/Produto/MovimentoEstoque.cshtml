@@ -8,3 +8,10 @@
         <p><strong>Data do Movimento:</strong> @Model.DataChegada.ToString("dd/MM/yyyy HH:mm:ss")</p>
     </div>
 </div>
+
+
+<div class="mt-3 text-end">
+    <a class="btn btn-secondary" asp-action="Editar" asp-route-id="@Model.ProdutoId">
+        <i class="fa-solid fa-arrow-left"></i> Voltar para Edição
+    </a>
+</div>

@@ -35,7 +35,13 @@ namespace App.Controllers
 
             if (usuario == null || usuario.Senha != viewmodel.Senha)
             {
-                ModelState.AddModelError("", "Credenciais inválidas!");
+                ModelState.AddModelError("Email", "Credenciais inválidas!");
+                return View(viewmodel);
+            }
+
+            if (!usuario.Ativo)
+            {
+                ModelState.AddModelError("Email", "Usuário inativo.");
                 return View(viewmodel);
             }
 
@@ -43,7 +49,7 @@ namespace App.Controllers
 
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
             {
-                return Redirect(returnUrl); 
+                return Redirect(returnUrl);
             }
 
             return RedirectToAction("Index", "Produto");

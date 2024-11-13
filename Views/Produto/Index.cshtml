@@ -1,4 +1,4 @@
-@model IEnumerable<Octavados.ViewModels.IndexDeProdutosVM>
+@model X.PagedList.IPagedList<Octavados.ViewModels.IndexDeProdutosVM>
 
 @{
     ViewData["Title"] = "Produtos";
@@ -53,14 +53,14 @@
         foreach (var produto in Model)
         {
             <a class="list-group-item list-group-item-action" asp-action="Editar" asp-route-id="@produto.ProdutoId">
-                 <div class="d-flex justify-content-around">
+                <div class="d-flex justify-content-around">
                     <div class="col-1 text-start">
                         <span>@produto.ProdutoId.ToString("0000")</span>
                     </div>
                     <div class="col-10 text-start">
                         <strong>@produto.Nome</strong><br>
                         <span>Categoria: @(produto.CategoriaNome ?? "N/A")</span><br>
-                        <span>Preço: @produto.Preco</span>
+                        <span>Preço: R$ @produto.Preco.ToString("N2")</span>
                     </div>
                     <div class="col-1 text-end">
                         <span>Marca: @produto.Marca</span><br>
@@ -83,3 +83,14 @@
 
     }
 </div>
+
+
+@Html.PagedListPager(Model, page =>
+    Url.Action("Index", new
+    {
+        page,
+        nomeProduto = Context.Request.Query["nomeProduto"],
+        categoriaId = Context.Request.Query["categoriaId"],
+        id = Context.Request.Query["id"],
+        marca = Context.Request.Query["marca"]
+    }))

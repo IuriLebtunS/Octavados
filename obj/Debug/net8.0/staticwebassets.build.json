@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "TNr8mzsbmtjJsNgVAW1W6Q4fNXuHH4kfFsA62CNXAfQ=",
+  "Hash": "nIBfaAZJ7pYdknHzdFFXFXY0nx0r16LMAUIx5C9DWTc=",
   "Source": "Octavados",
   "BasePath": "_content/Octavados",
   "Mode": "Default",
@@ -16,6 +16,25 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\css\\PagedList.css",
+      "SourceId": "Octavados",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\",
+      "BasePath": "_content/Octavados",
+      "RelativePath": "css/PagedList.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\PagedList.css"
+    },
     {
       "Identity": "C:\\Users\\lebtu\\Documents\\cosasvarias\\Octavados\\wwwroot\\favicon.ico",
       "SourceId": "Octavados",
