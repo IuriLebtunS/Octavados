@@ -17,14 +17,14 @@ namespace App.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login(string returnUrl = null)
+        public IActionResult Login(string? returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginVM viewmodel, string returnUrl = null)
+        public async Task<IActionResult> Login(LoginVM viewmodel, string? returnUrl = null)
         {
             if (!ModelState.IsValid)
             {

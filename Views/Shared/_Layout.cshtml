@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.3/darkly/bootstrap.min.css"
         integrity="sha512-HDszXqSUU0om4Yj5dZOUNmtwXGWDa5ppESlX98yzbBS+z+3HQ8a/7kcdI1dv+jKq+1V5b01eYurE7+yFjw6Rdg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link href="/css/PagedList.css" rel="stylesheet" type="text/css" />
+    <link href="/css/PagedList.css" rel="stylesheet" type="text/css" />
 </head>
 
 
@@ -33,17 +33,24 @@
                     <ul class="navbar-nav flex-grow-1">
 
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Usuario" asp-action="Index">Usuarios</a>
+                            <a class="nav-link" asp-area="" asp-controller="Usuario"
+                             asp-action="Index">Usuarios</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Categoria" asp-action="Index">Categorias</a>
+                            <a class="nav-link" asp-area="" asp-controller="Categoria" 
+                            asp-action="Index">Categorias</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Produto" asp-action="Index">Produtos</a>
+                            <a class="nav-link" asp-area="" asp-controller="Produto" 
+                            asp-action="Index">Produtos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Produto"
                                 asp-action="AdicionarEstoque">Estoque</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Produto"
+                                asp-action="AdicionarEstoque">Vendas</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
@@ -83,7 +90,8 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - Octavados - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy-Projeto Testes</a>
+            &copy; 2023 - Octavados - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy-Projeto
+                Testes</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
