@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Octavados.Migrations
 {
     /// <inheritdoc />
-    public partial class AdicioneiPropiedadesEClaseNovaNaTabelaVenda : Migration
+    public partial class VendasProdutosDaVendaEClientes : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,12 +28,13 @@ namespace Octavados.Migrations
                 table: "Vendas");
 
             migrationBuilder.DropColumn(
-                name: "Quantidade",
-                table: "Vendas");
-
-            migrationBuilder.DropColumn(
                 name: "Total",
                 table: "Vendas");
+
+            migrationBuilder.RenameColumn(
+                name: "Quantidade",
+                table: "Vendas",
+                newName: "ClienteId");
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "DataVenda",
@@ -43,7 +44,29 @@ namespace Octavados.Migrations
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.CreateTable(
-                name: "DetalheDaVenda",
+                name: "Clientes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CPF = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Rua = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Numero = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Bairro = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Cidade = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CEP = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clientes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProdutoVendas",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -56,29 +79,58 @@ namespace Octavados.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DetalheDaVenda", x => x.Id);
+                    table.PrimaryKey("PK_ProdutoVendas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DetalheDaVenda_Vendas_VendaId",
+                        name: "FK_ProdutoVendas_Vendas_VendaId",
                         column: x => x.VendaId,
                         principalTable: "Vendas",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_DetalheDaVenda_VendaId",
-                table: "DetalheDaVenda",
+                name: "IX_Vendas_ClienteId",
+                table: "Vendas",
+                column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProdutoVendas_VendaId",
+                table: "ProdutoVendas",
                 column: "VendaId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Vendas_Clientes_ClienteId",
+                table: "Vendas",
+                column: "ClienteId",
+                principalTable: "Clientes",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Vendas_Clientes_ClienteId",
+                table: "Vendas");
+
             migrationBuilder.DropTable(
-                name: "DetalheDaVenda");
+                name: "Clientes");
+
+            migrationBuilder.DropTable(
+                name: "ProdutoVendas");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Vendas_ClienteId",
+                table: "Vendas");
 
             migrationBuilder.DropColumn(
                 name: "DataVenda",
                 table: "Vendas");
+
+            migrationBuilder.RenameColumn(
+                name: "ClienteId",
+                table: "Vendas",
+                newName: "Quantidade");
 
             migrationBuilder.AddColumn<decimal>(
                 name: "Desconto",
@@ -89,13 +141,6 @@ namespace Octavados.Migrations
 
             migrationBuilder.AddColumn<int>(
                 name: "DetalheId",
-                table: "Vendas",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<int>(
-                name: "Quantidade",
                 table: "Vendas",
                 type: "int",
                 nullable: false,

@@ -66,6 +66,59 @@ namespace Octavados.Migrations
                     b.ToTable("Categorias");
                 });
 
+            modelBuilder.Entity("Octavados.Models.Cliente", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CEP")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CPF")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cidade")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Numero")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Rua")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Telefone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clientes");
+                });
+
             modelBuilder.Entity("Octavados.Models.Detalhe", b =>
                 {
                     b.Property<int>("Id")
@@ -151,26 +204,7 @@ namespace Octavados.Migrations
                     b.ToTable("Produtos");
                 });
 
-            modelBuilder.Entity("Octavados.Models.Venda", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("DataVenda")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("ValorDoFrete")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Vendas");
-                });
-
-            modelBuilder.Entity("Octavados.Models.Venda+DetalheDaVenda", b =>
+            modelBuilder.Entity("Octavados.Models.ProdutoVenda", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -197,7 +231,31 @@ namespace Octavados.Migrations
 
                     b.HasIndex("VendaId");
 
-                    b.ToTable("DetalheDaVenda");
+                    b.ToTable("ProdutoVendas");
+                });
+
+            modelBuilder.Entity("Octavados.Models.Venda", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DataVenda")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("ValorDoFrete")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.ToTable("Vendas");
                 });
 
             modelBuilder.Entity("Octavados.Models.Detalhe", b =>
@@ -233,16 +291,32 @@ namespace Octavados.Migrations
                     b.Navigation("Categoria");
                 });
 
-            modelBuilder.Entity("Octavados.Models.Venda+DetalheDaVenda", b =>
+            modelBuilder.Entity("Octavados.Models.ProdutoVenda", b =>
                 {
                     b.HasOne("Octavados.Models.Venda", null)
-                        .WithMany("DetalhesDaVenda")
+                        .WithMany("ProdutosVenda")
                         .HasForeignKey("VendaId");
+                });
+
+            modelBuilder.Entity("Octavados.Models.Venda", b =>
+                {
+                    b.HasOne("Octavados.Models.Cliente", "Cliente")
+                        .WithMany("Vendas")
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
                 });
 
             modelBuilder.Entity("Octavados.Models.Categoria", b =>
                 {
                     b.Navigation("Produtos");
+                });
+
+            modelBuilder.Entity("Octavados.Models.Cliente", b =>
+                {
+                    b.Navigation("Vendas");
                 });
 
             modelBuilder.Entity("Octavados.Models.Produto", b =>
@@ -252,7 +326,7 @@ namespace Octavados.Migrations
 
             modelBuilder.Entity("Octavados.Models.Venda", b =>
                 {
-                    b.Navigation("DetalhesDaVenda");
+                    b.Navigation("ProdutosVenda");
                 });
 #pragma warning restore 612, 618
         }
