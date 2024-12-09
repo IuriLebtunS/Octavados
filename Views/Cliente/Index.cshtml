@@ -1,0 +1,82 @@
+@model X.PagedList.IPagedList<Octavados.ViewModels.IndexDeClientesVM>
+
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+<div class="d-flex justify-content-between">
+    <h2>
+        <i class="fas fa-users"></i>
+        @ViewData["Title"]
+    </h2>
+
+    <div class='ms-auto'>
+        <a asp-action="Criar" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i>
+            Novo Cliente
+        </a>
+    </div>
+</div>
+<br>
+
+<form asp-action="Index" method="get" class="form-group mb-3">
+    <div class="row">
+        <div class='col-md-3'>
+            <input type="text" class="form-control" name="nomeCliente" placeholder="Nome do Cliente" value="@Context.Request.Query["nomeCliente"]" />
+        </div>
+
+        <div class='col-md-3'>
+            <input type="text" class="form-control" name="cpf" placeholder="CPF" value="@Context.Request.Query["cpf"]" />
+        </div>
+
+        <div class='col-md-3'>
+            <input type="email" class="form-control" name="email" placeholder="Email" value="@Context.Request.Query["email"]" />
+        </div>
+
+        <div class='col-md-3 text-end'>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+    </div>
+</form>
+
+<div class="list-group">
+    @if (Model.Any())
+    {
+        foreach (var cliente in Model)
+        {
+            <a class="list-group-item list-group-item-action" asp-action="Editar" asp-route-id="@cliente.ClienteId">
+                <div class="d-flex justify-content-around">
+                    <div class="col-2 text-start">
+                        <span>@cliente.ClienteId.ToString("0000")</span>
+                    </div>
+                    <div class="col-8 text-start">
+                        <strong>@cliente.Nome</strong><br>
+                        <span>CPF: @cliente.CPF</span><br>
+                        <span>Email: @cliente.Email</span>
+                    </div>
+                    <div class="col-2 text-end">
+                        <span>Telefone: @(cliente.Telefone ?? "N/A")</span>
+                    </div>
+                </div>
+            </a>
+        }
+    }
+    else
+    {
+        <div class="d-flex justify-content-around">
+            <h2>
+                <i class="fa-solid fa-ghost"></i>
+                Nenhum cliente cadastrado.
+            </h2>
+        </div>
+    }
+</div>
+
+@Html.PagedListPager(Model, page =>
+    Url.Action("Index", new
+    {
+        page,
+        nomeCliente = Context.Request.Query["nomeCliente"],
+        cpf = Context.Request.Query["cpf"],
+        email = Context.Request.Query["email"]
+    }))
