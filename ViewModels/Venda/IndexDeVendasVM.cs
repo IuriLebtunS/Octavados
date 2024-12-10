@@ -1,6 +1,6 @@
 namespace Octavados.ViewModels
 {
-    public class IndexVendasViewModel
+    public class IndexVendasVM
     {
         public int Id { get; set; } 
         public DateTime DataVenda { get; set; } 

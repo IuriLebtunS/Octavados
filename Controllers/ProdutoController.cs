@@ -11,7 +11,6 @@ using Octavados.Data;
 namespace Octavados.Controllers
 {
     [Authorize]
-
     public class ProdutoController : Controller
     {
         private readonly Contexto _db;
@@ -20,6 +19,7 @@ namespace Octavados.Controllers
         {
             _db = context;
         }
+        
         [Authorize]
         public async Task<IActionResult> Index(string nomeProduto, int? categoriaId, int? id, string marca, int page = 1)
         {
