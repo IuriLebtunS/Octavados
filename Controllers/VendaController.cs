@@ -5,6 +5,8 @@ using Octavados.Models;
 using Octavados.Data;
 using X.PagedList.Extensions;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using X.PagedList;
+
 
 namespace Octavados.Controllers;
 
@@ -19,10 +21,10 @@ public class VendaController : Controller
     public async Task<IActionResult> Index(string nomeCliente, string nomeProduto, decimal? totalVenda, DateTime? dataCompra, int page = 1)
     {
         var vendasQuery = _db.Vendas
-        .Include(v => v.Cliente)
-        .Include(v => v.ProdutosVenda)
-        .AsNoTracking()
-        .AsQueryable();
+            .Include(v => v.Cliente)
+            .Include(v => v.ProdutosVenda)
+            .AsNoTracking()
+            .AsQueryable();
 
         if (!string.IsNullOrEmpty(nomeCliente))
             vendasQuery = vendasQuery.Where(v => v.Cliente.Nome.Contains(nomeCliente));
@@ -35,7 +37,6 @@ public class VendaController : Controller
 
         if (dataCompra.HasValue)
             vendasQuery = vendasQuery.Where(v => v.DataVenda.Date == dataCompra.Value.Date);
-
 
         var vendasList = await vendasQuery
             .OrderByDescending(v => v.DataVenda)
@@ -51,9 +52,20 @@ public class VendaController : Controller
 
         var vendasPaged = vendasList.ToPagedList(page, 10);
 
-        return View(vendasPaged);
-    }
+        var viewModel = new VendasIndexVM
+        {
+            Filtros = new FiltrosVendasVM
+            {
+                NomeCliente = nomeCliente,
+                NomeProduto = nomeProduto,
+                TotalVenda = totalVenda,
+                DataCompra = dataCompra
+            },
+            Vendas = vendasPaged
+        };
 
+        return View(viewModel);
+    }
     public async Task CarregarViewDataVendas()
     {
         var clientes = await _db.Clientes
