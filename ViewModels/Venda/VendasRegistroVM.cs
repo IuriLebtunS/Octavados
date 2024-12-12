@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Octavados.Models;
 
 namespace Octavados.ViewModels
 {
@@ -7,7 +8,7 @@ namespace Octavados.ViewModels
         public int ClienteId { get; set; }  
         public DateTime DataVenda { get; set; }  
         public decimal ValorDoFrete { get; set; }  
-        public List<SelectListItem> Produtos { get; set; }
+        public List<Produto> Produtos { get; set; } = new List<Produto>();
         public List<ProdutoVendaItem> ProdutosVenda { get; set; } = new List<ProdutoVendaItem>();
     }
 

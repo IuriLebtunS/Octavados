@@ -85,7 +85,6 @@ public class VendaController : Controller
     public async Task<IActionResult> Criar()
     {
         await CarregarViewDataVendas();
-
         return View();
     }
 
@@ -99,18 +98,22 @@ public class VendaController : Controller
                 ClienteId = model.ClienteId,
                 DataVenda = model.DataVenda,
                 ValorDoFrete = model.ValorDoFrete,
+                ProdutosVenda = new List<ProdutoVenda>()
             };
 
             foreach (var item in model.ProdutosVenda)
             {
-                var produtoVenda = new ProdutoVenda
+                var produto = await _db.Produtos.FindAsync(item.ProdutoId);
+                if (produto != null)
                 {
-                    ProdutoId = item.ProdutoId,
-                    Quantidade = item.Quantidade,
-                    PrecoUnitario = item.PrecoUnitario,
-                    Desconto = item.Desconto
-                };
-                venda.ProdutosVenda.Add(produtoVenda);
+                    venda.ProdutosVenda.Add(new ProdutoVenda
+                    {
+                        ProdutoId = item.ProdutoId,
+                        Quantidade = item.Quantidade,
+                        PrecoUnitario = item.PrecoUnitario,
+                        Desconto = item.Desconto
+                    });
+                }
             }
 
             _db.Vendas.Add(venda);
@@ -119,17 +122,7 @@ public class VendaController : Controller
             return RedirectToAction("Index");
         }
 
-        var produtos = await _db.Produtos
-                 .AsNoTracking()
-                 .Select(p => new SelectListItem
-                 {
-                     Value = p.Id.ToString(),
-                     Text = p.Nome
-                 }).ToListAsync();
-        model.Produtos = produtos;
-
         await CarregarViewDataVendas();
-
         return View(model);
     }
 }
