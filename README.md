@@ -13,7 +13,7 @@
 ## Tecnologias Usadas
 
 - **Backend**: C# com .NET
-- **Banco de Dados**: PostgreSQL e SQL Server Management Studio
+- **Banco de Dados**: SQL Server Management Studio
 - **Padrão de Arquitetura**: MVC (Model-View-Controller)
 - **Ferramentas de Desenvolvimento**: Visual Studio, Git, GitHub
 
