@@ -113,11 +113,13 @@ public class VendaController : Controller
 
     public async Task<IActionResult> AdicionarProdutos(int id)
     {
-        var venda = await _db.Vendas.Include(v => v.ProdutosVenda).FirstOrDefaultAsync(v => v.Id == id);
+        var venda = await _db.Vendas
+            .Include(v => v.ProdutosVenda)
+            .FirstOrDefaultAsync(v => v.Id == id);
 
-        ViewData["Produtos"] = new SelectList(await _db.Produtos.ToListAsync(), "Id", "Nome");
+        await CarregarViewDataVendas();
 
-        return View(id); 
+        return View(venda);
     }
 
     [HttpPost]
@@ -127,30 +129,37 @@ public class VendaController : Controller
         {
             var produto = await _db.Produtos.FindAsync(model.ProdutoId);
 
-            if (produto == null || produto.QuantidadeDeEstoque < model.Quantidade)
+            if (produto.QuantidadeDeEstoque < model.Quantidade)
             {
-                ModelState.AddModelError("", "Produto não encontrado ou estoque insuficiente.");
+                ModelState.AddModelError("", "Estoque insuficiente para a quantidade solicitada.");
                 return RedirectToAction("AdicionarProdutos", new { id = vendaId });
             }
 
+            var venda = await _db.Vendas
+                .Include(v => v.ProdutosVenda)
+                .FirstOrDefaultAsync(v => v.Id == vendaId);
+
             var produtoVenda = new ProdutoVenda
             {
-                VendaId = vendaId,
                 ProdutoId = model.ProdutoId,
                 Quantidade = model.Quantidade,
                 PrecoUnitario = model.PrecoUnitario,
                 Desconto = model.Desconto
             };
 
+            venda.ProdutosVenda.Add(produtoVenda);
+
+
             produto.QuantidadeDeEstoque -= model.Quantidade;
 
             _db.ProdutoVendas.Add(produtoVenda);
+
             await _db.SaveChangesAsync();
 
             return RedirectToAction("AdicionarProdutos", new { id = vendaId });
         }
 
-        ViewData["Produtos"] = new SelectList(await _db.Produtos.ToListAsync(), "Id", "Nome");
+        await CarregarViewDataVendas();
         return View(model);
     }
 
