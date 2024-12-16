@@ -75,12 +75,13 @@ public class VendaController : Controller
         ViewData["Clientes"] = new SelectList(clientes, "Id", "Nome");
 
         var produtos = await _db.Produtos
-                .AsNoTracking()
-                .Select(p => new { p.Id, p.Nome })
-                .ToListAsync();
-        ViewData["Produtos"] = new SelectList(produtos, "Id", "Nome");
-    }
+                          .AsNoTracking()
+                          .Select(p => new { p.Id, p.Nome })
+                          .ToListAsync();
 
+        ViewData["Produtos"] = new SelectList(produtos, "Id", "Nome");
+
+    }
 
     public async Task<IActionResult> Criar()
     {
@@ -98,32 +99,60 @@ public class VendaController : Controller
                 ClienteId = model.ClienteId,
                 DataVenda = model.DataVenda,
                 ValorDoFrete = model.ValorDoFrete,
-                ProdutosVenda = new List<ProdutoVenda>()
             };
-
-            foreach (var item in model.ProdutosVenda)
-            {
-                var produto = await _db.Produtos.FindAsync(item.ProdutoId);
-                if (produto != null)
-                {
-                    venda.ProdutosVenda.Add(new ProdutoVenda
-                    {
-                        ProdutoId = item.ProdutoId,
-                        Quantidade = item.Quantidade,
-                        PrecoUnitario = item.PrecoUnitario,
-                        Desconto = item.Desconto
-                    });
-                }
-            }
 
             _db.Vendas.Add(venda);
             await _db.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("AdicionarProdutos", new { id = venda.Id });
         }
 
         await CarregarViewDataVendas();
         return View(model);
     }
+
+    public async Task<IActionResult> AdicionarProdutos(int id)
+    {
+        var venda = await _db.Vendas.Include(v => v.ProdutosVenda).FirstOrDefaultAsync(v => v.Id == id);
+
+        ViewData["Produtos"] = new SelectList(await _db.Produtos.ToListAsync(), "Id", "Nome");
+
+        return View(id); 
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AdicionarProdutos(int vendaId, ProdutoVendaViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            var produto = await _db.Produtos.FindAsync(model.ProdutoId);
+
+            if (produto == null || produto.QuantidadeDeEstoque < model.Quantidade)
+            {
+                ModelState.AddModelError("", "Produto não encontrado ou estoque insuficiente.");
+                return RedirectToAction("AdicionarProdutos", new { id = vendaId });
+            }
+
+            var produtoVenda = new ProdutoVenda
+            {
+                VendaId = vendaId,
+                ProdutoId = model.ProdutoId,
+                Quantidade = model.Quantidade,
+                PrecoUnitario = model.PrecoUnitario,
+                Desconto = model.Desconto
+            };
+
+            produto.QuantidadeDeEstoque -= model.Quantidade;
+
+            _db.ProdutoVendas.Add(produtoVenda);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction("AdicionarProdutos", new { id = vendaId });
+        }
+
+        ViewData["Produtos"] = new SelectList(await _db.Produtos.ToListAsync(), "Id", "Nome");
+        return View(model);
+    }
+
 }
 
