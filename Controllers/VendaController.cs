@@ -23,6 +23,7 @@ public class VendaController : Controller
         var vendasQuery = _db.Vendas
             .Include(v => v.Cliente)
             .Include(v => v.ProdutosVenda)
+            .ThenInclude(pv => pv.Produto)
             .AsNoTracking()
             .AsQueryable();
 
@@ -43,6 +44,7 @@ public class VendaController : Controller
             .Select(v => new IndexVendasVM
             {
                 Id = v.Id,
+                NomeCliente = v.Cliente.Nome,
                 DataVenda = v.DataVenda,
                 ValorDoFrete = v.ValorDoFrete,
                 Total = v.Total,

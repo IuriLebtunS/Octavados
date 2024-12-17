@@ -5,6 +5,7 @@ namespace Octavados.ViewModels;
     public class IndexVendasVM
     {
         public int Id { get; set; }
+        public string NomeCliente { get; set; }
         public DateTime DataVenda { get; set; }
         public decimal ValorDoFrete { get; set; }
         public decimal? Total { get; set; }

@@ -53,9 +53,9 @@
             <div class="d-flex justify-content-between">
                 <div class="col-2">@venda.Id</div>
                 <div class="col-3">@venda.NomeProduto</div>
+                <div class="col-2">@venda.NomeCliente</div>
                 <div class="col-2">@venda.DataVenda.ToString("dd/MM/yyyy")</div>
                 <div class="col-2">R$ @venda.Total?.ToString("N2") ?? "0,00"</div>
-                <div class="col-2">@venda.QuantidadeDeItens</div>
             </div>
         </a>
     }
