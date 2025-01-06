@@ -116,12 +116,28 @@ public class VendaController : Controller
     public async Task<IActionResult> AdicionarProdutos(int id)
     {
         var venda = await _db.Vendas
-            .Include(v => v.ProdutosVenda)
-            .FirstOrDefaultAsync(v => v.Id == id);
+        .Include(v => v.ProdutosVenda)
+        .ThenInclude(pv => pv.Produto)
+        .FirstOrDefaultAsync(v => v.Id == id);
+
+        var model = new CriarVendaViewModel
+        {
+            ClienteId = venda.ClienteId,
+            DataVenda = venda.DataVenda,
+            ValorDoFrete = venda.ValorDoFrete,
+            ProdutosVenda = venda.ProdutosVenda.Select(pv => new ProdutoVendaItem
+            {
+                ProdutoId = pv.ProdutoId,
+                Quantidade = pv.Quantidade,
+                PrecoUnitario = pv.PrecoUnitario,
+                Desconto = pv.Desconto ?? 0m
+            }).ToList()
+        };
 
         await CarregarViewDataVendas();
 
-        return View(venda);
+
+        return View();
     }
 
     [HttpPost]
@@ -129,17 +145,15 @@ public class VendaController : Controller
     {
         if (ModelState.IsValid)
         {
+            var venda = await _db.Vendas.Include(v => v.ProdutosVenda).FirstOrDefaultAsync(v => v.Id == vendaId);
+          
             var produto = await _db.Produtos.FindAsync(model.ProdutoId);
 
             if (produto.QuantidadeDeEstoque < model.Quantidade)
             {
-                ModelState.AddModelError("", "Estoque insuficiente para a quantidade solicitada.");
+                ModelState.AddModelError("", "Estoque insuficiente para o produto selecionado.");
                 return RedirectToAction("AdicionarProdutos", new { id = vendaId });
             }
-
-            var venda = await _db.Vendas
-                .Include(v => v.ProdutosVenda)
-                .FirstOrDefaultAsync(v => v.Id == vendaId);
 
             var produtoVenda = new ProdutoVenda
             {
@@ -151,16 +165,13 @@ public class VendaController : Controller
 
             venda.ProdutosVenda.Add(produtoVenda);
 
-
             produto.QuantidadeDeEstoque -= model.Quantidade;
 
             _db.ProdutoVendas.Add(produtoVenda);
-
             await _db.SaveChangesAsync();
 
             return RedirectToAction("AdicionarProdutos", new { id = vendaId });
         }
-
         await CarregarViewDataVendas();
         return View(model);
     }
